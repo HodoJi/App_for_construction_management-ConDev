@@ -1,63 +1,7 @@
 <template>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid">
-                <router-link :to="{ name: 'home' }" class="navbar-brand">App for construction management</router-link>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item" v-if="isLoggedIn">
-                            <router-link :to="{ name: 'home' }" class="nav-link">Domov</router-link>
-                        </li>
-                        <li class="nav-item" v-if="isLoggedIn">
-                            <a class="nav-link text-danger" style="cursor: pointer" @click="logout">Odhlásiť sa</a>
-                        </li>
-                        <li class="nav-item" v-else>
-                            <router-link :to="{ name: 'login' }" class="nav-link">Prihlásiť sa</router-link>
-                        </li>
-                    </ul>
-                </div>
-                <a v-if="isLoggedIn">Vitaj {{ name }}</a>
-            </div>
-        </nav>
-    </header>
-    <main class="flex-shrink-0">
-        <div class="container-fluid">
-            <router-view></router-view>
-        </div>
+    <main class="h-100">
+        <router-view></router-view>
     </main>
-    <footer class="footer mt-auto text-center text-lg-start border-top border-primary">
-        <div class="container p-4">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Jako?</h5>
-                    <p>
-                        <!-- opis stránky -->
-                    </p>
-                </div>
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0 float-end">
-                    <h5 class="text-uppercase">Autori</h5>
-                    <p>
-                        Systém vytvorili
-                    </p>
-                    <ul>
-                        <li>peepo 1...</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="text-center p-2">
-            <button id="themeSwitch" class="btn btn-primary">🌙</button>
-        </div>
-        <div class="text-center p-3 bg-primary text-white">
-            2022 &lt;footer&gt;
-        </div>
-    </footer>
 </template>
 
 <script>
@@ -66,22 +10,8 @@ export default {
     data() {
         return {
             name: "",
-            isLoggedIn: false,
+            isLoggedIn: true,
         }
-    },
-    created() {
-        if (window.Laravel.isLoggedin) {
-            this.isLoggedIn = true
-        }
-        if (window.Laravel.user) {
-            this.name = window.Laravel.user.name
-        }
-    },
-    beforeRouteEnter(to, from, next) {
-        if (!window.Laravel.isLoggedIn) {
-            window.location.href = "./";
-        }
-        next();
     },
     methods: {
         logout(e) {
@@ -102,6 +32,35 @@ export default {
         }
     },
 }
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";SameSite=Strict; Secure;" + "path=/";
+}
+
+import $ from 'jquery';
+
+$(document).ready(function () {
+    $('#themeSwitch').click(function () {
+        let themeSelected = $('#themeLink').attr('class');
+        if (themeSelected === 'light') {
+            setCookie("UserThemeTP2Management", "themeIsDark", 90);
+            $('link[id="themeLink"]').attr('href', './css/dark_mode.css').attr('class', 'dark');
+            $('#themeSwitch').html('&#x1F31E;');
+        }
+        if (themeSelected === 'dark') {
+            setCookie("UserThemeTP2Management", "", -1);
+            $('link[id="themeLink"]').attr('href', './css/light_mode.css').attr('class', 'light');
+            $('#themeSwitch').html('🌙');
+        }
+    });
+});
+$(document).ready(function () {
+    if (document.cookie.indexOf('UserThemeTP2Management') > -1) {
+        $('#themeSwitch').html('&#x1F31E;');
+    }
+});
 </script>
 <style>
 
