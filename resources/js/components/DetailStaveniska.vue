@@ -4,17 +4,17 @@
             <div class="col-8 d-flex align-items-center justify-content-start">
                 <div class="row">
                     <div class="col-12 mb-0 pb-0">
-                        <h4 class="fw-bold">Zoznam stavenísk</h4>
+                        <h4 class="fw-bold">Detail staveniska</h4>
                     </div>
                     <div class="col-12 mt-0 pt-0">
-                        <p class="small text-muted fw-light">Počet stavenísk: 3</p>
+                        <p class="small text-muted fw-light">Tr. A. Hlinku 1 (stavenisko #3)</p>
                     </div>
                 </div>
 
 
             </div>
             <div class="col-4 d-flex align-items-start justify-content-end">
-                <button type="button" class="btn btn-primary"><i class="fas fa-list text-black fs-6"></i></button>
+                <button type="button" class="btn btn-info"><i class="fas fa-list text-black fs-6"></i></button>
             </div>
         </div>
         <div class="align-items-center justify-content-center">
@@ -22,39 +22,52 @@
                 <li class="list-group-item align-middle">
                     <div class="row g-0 justify-content-center">
                         <div class="col">
-                            <button type="button" class="btn btn-primary">1.</button>
+                            <button type="button" class="btn btn-info">1.</button>
                         </div>
                         <div class="col-auto">
-                            <div class="fw-bold text-center">Bottova 5</div>
+                            <div class="fw-bold text-center">Zoznam materiálov</div>
                         </div>
                         <div class="col text-end">
-                            <router-link :to="{ name: 'detailstaveniska' }" class="btn btn-primary">4 <i class="fas fa-hard-hat"></i></router-link>
+                            <router-link :to="{ name: 'zoznammaterialov' }" class="btn btn-info"><i class="fas fa-angle-right"></i></router-link>
                         </div>
                     </div>
                 </li>
                 <li class="list-group-item align-middle">
                     <div class="row g-0 justify-content-center">
                         <div class="col">
-                            <button type="button" class="btn btn-primary">2.</button>
+                            <button type="button" class="btn btn-info">2.</button>
                         </div>
                         <div class="col-auto">
-                            <div class="fw-bold text-center">Novozámocká 22</div>
+                            <div class="fw-bold text-center">Zoznam personálu</div>
                         </div>
                         <div class="col text-end">
-                            <button type="button" class="btn btn-primary">8 <i class="fas fa-hard-hat"></i></button>
+                            <router-link :to="{ name: 'zoznampersonalu' }" class="btn btn-info"><i class="fas fa-angle-right"></i></router-link>
                         </div>
                     </div>
                 </li>
                 <li class="list-group-item align-middle">
                     <div class="row g-0 justify-content-center">
                         <div class="col">
-                            <button type="button" class="btn btn-primary">3.</button>
+                            <button type="button" class="btn btn-info">3.</button>
                         </div>
                         <div class="col-auto">
-                            <div class="fw-bold text-center">Tr. A. Hlinku 1</div>
+                            <div class="fw-bold text-center">Zoznam šoférov</div>
                         </div>
                         <div class="col text-end">
-                            <router-link :to="{ name: 'detailstaveniska' }" class="btn btn-primary">6 <i class="fas fa-hard-hat"></i></router-link>
+                            <router-link :to="{ name: 'zoznamsoferov' }" class="btn btn-info"><i class="fas fa-angle-right"></i></router-link>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item align-middle">
+                    <div class="row g-0 justify-content-center">
+                        <div class="col">
+                            <button type="button" class="btn btn-info">4.</button>
+                        </div>
+                        <div class="col-auto">
+                            <div class="fw-bold text-center">Zoznam objednávok</div>
+                        </div>
+                        <div class="col text-end">
+                            <router-link :to="{ name: 'zoznamobjednavok' }" class="btn btn-info"><i class="fas fa-angle-right"></i></router-link>
                         </div>
                     </div>
                 </li>
@@ -71,7 +84,7 @@
 
 <script>
 export default {
-    name: "Home",
+    name: "DetailStaveniska",
     data() {
 
     },
