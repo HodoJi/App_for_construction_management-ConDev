@@ -8,8 +8,6 @@ import App from "./components/App.vue";
 import { routes } from "./routes";
 import axios from "axios";
 import VueAxios from "vue-axios";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -17,8 +15,6 @@ const router = createRouter({
 });
 
 const app = createApp(App);
-app.component('Header', Header);
-app.component('Footer', Footer);
 app.use(router);
 app.use(VueAxios, axios);
 
@@ -34,7 +30,7 @@ require('./bootstrap');
 router.beforeEach((to, from) => {
     const base_path = "/TP2-App_for_construction_management/public/";
 
-/* Neprihlásený
+//Neprihlásený
     if (!window.Laravel.isLoggedin)
     {
         if (to.path === base_path + 'home')
@@ -60,5 +56,5 @@ router.beforeEach((to, from) => {
         {
             router.push(base_path);
         }
-    }*/
+    }
 });

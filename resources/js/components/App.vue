@@ -5,31 +5,30 @@
 </template>
 
 <script>
+
 export default {
     name: "App",
     data() {
         return {
             name: "",
-            isLoggedIn: true,
+            isLoggedIn: false,
         }
     },
-    methods: {
-        logout(e) {
-            e.preventDefault()
-            this.$axios.get('./sanctum/csrf-cookie').then(response => {
-                this.$axios.post('./api/logout')
-                    .then(response => {
-                        if (response.data.success) {
-                            window.location.href = "./login"
-                        } else {
-                            console.log(response)
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error(error);
-                    });
-            })
+    created() {
+        if (window.Laravel.isLoggedin) {
+            this.isLoggedIn = true
         }
+        if (window.Laravel.user) {
+            this.name = window.Laravel.user.name
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        if (!window.Laravel.isLoggedIn) {
+            window.location.href = "./";
+        }
+        next();
+    },
+    methods: {
     },
 }
 function setCookie(cname, cvalue, exdays) {

@@ -10,11 +10,9 @@
                         <p class="small text-muted fw-light">Počet stavenísk: 3</p>
                     </div>
                 </div>
-
-
             </div>
             <div class="col-4 d-flex align-items-start justify-content-end">
-                <button type="button" class="btn btn-primary"><i class="fas fa-list text-black fs-6"></i></button>
+                <button type="button" @click="showModal = true" class="btn btn-primary"><i class="fas fa-list text-black fs-6"></i></button>
             </div>
         </div>
         <div class="align-items-center justify-content-center">
@@ -67,13 +65,24 @@
             <button type="button" class="btn btn-primary w-100">Objednať</button>
         </div>
     </div>
+    <Teleport to="body">
+        <BurgerMenu :show="showModal" @close="showModal = false">
+        </BurgerMenu>
+    </Teleport>
+
 </template>
 
 <script>
+
+import BurgerMenu from "./BurgerMenu";
 export default {
     name: "Home",
+    components:{BurgerMenu},
     data() {
-
+        return{
+            name: "",
+            showModal: false
+        }
     },
     methods: {
         //

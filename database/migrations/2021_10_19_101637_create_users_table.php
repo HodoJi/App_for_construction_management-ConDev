@@ -19,7 +19,8 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name', 100)->unique(); // :username
             $table->string('email', 250)->unique(); //: email
-            $table->string('password', 250); //: password
+            $table->string('personalId', 9)->unique();
+            $table->string('password')->default(bcrypt(0));
 
             //$table->unsignedBigInteger('role_id'); // → MAY BE ADDED IN FUTURE.
 

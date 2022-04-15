@@ -14,23 +14,22 @@ class LoginController extends Controller
     public function loginUser(Request $request)
     {
 
-        $this->checkTooManyFailedAttempts();
+
+        //$this->checkTooManyFailedAttempts();
 
         $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
+            'personalId' => $request->personalId,
+            'password' => $request->password
         ];
 
-        if (Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             RateLimiter::clear($this->throttleKey());
 
             $success = true;
             $message = 'Úspešne prihlásený.';
-        }
-        else
-        {
-            RateLimiter::hit($this->throttleKey(), $seconds = 3600);
+        } else {
+
+            //RateLimiter::hit($this->throttleKey(), $seconds = 2);
 
             $success = false;
             $message = 'Neautorizovaný prístup.';
@@ -48,16 +47,16 @@ class LoginController extends Controller
 
     public function throttleKey()
     {
-        return Str::lower(request('email')) . '|' . request()->ip();
+        return Str::lower(request('personalId')) . '|' . request()->ip();
     }
 
     public function checkTooManyFailedAttempts()
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 3))
-        {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 555)) {
+            RateLimiter::clear($this->throttleKey());
             return;
         }
-
+        RateLimiter::clear($this->throttleKey());
         throw new Exception('IP address banned. Too many login attempts.');
     }
 }
