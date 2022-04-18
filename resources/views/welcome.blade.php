@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
     <head>
+        <link rel="manifest" href="manifest.json" />
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <meta name="csrf-token" value="{{ csrf_token() /* Laravel token - Do not remove! */ }}">
 
         <link rel="stylesheet" href="{{ asset('css/shown.css') }}" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
 
-@if (isset($_COOKIE['UserThemeUKFWebKurier']))
+@if (isset($_COOKIE['UserThemeTP2Management']))
         <link id="themeLink" class="dark" rel="stylesheet" href="{{ asset('css/dark_mode.css') }}" type="text/css">
 @else
         <link id="themeLink" class="light" rel="stylesheet" href="{{ asset('css/light_mode.css') }}" type="text/css">
@@ -16,7 +19,7 @@
 
         <title>Aplikácia na manažment stavieb a ich materiálu</title>
     </head>
-    <body class="d-flex flex-column h-100">
+    <body class="h-100">
 
     @if (Auth::check())
         @php
@@ -35,6 +38,11 @@
 
     <script>
         window.Laravel = JSON.parse(atob('{{ base64_encode(json_encode($user_auth_data)) }}'));
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
     </script>
 
         <div id="app"></div>

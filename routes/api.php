@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // USER MANAGEMENT
 Route::post('register',                 [App\Http\Controllers\API\RegisterController::class,    'register']);
-Route::post('login',                    [App\Http\Controllers\API\LoginController::class,       'login']);
+Route::post('login',                    [App\Http\Controllers\API\LoginController::class,       'loginUser']);
 Route::post('logout',                   [App\Http\Controllers\API\LogoutController::class,      'logout'])->middleware('auth:sanctum');
 Route::delete('user-removal/{id}',      [App\Http\Controllers\API\UsersController::class,       'removeUser']);
 

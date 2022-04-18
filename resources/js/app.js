@@ -15,7 +15,6 @@ const router = createRouter({
 });
 
 const app = createApp(App);
-
 app.use(router);
 app.use(VueAxios, axios);
 
@@ -31,7 +30,7 @@ require('./bootstrap');
 router.beforeEach((to, from) => {
     const base_path = "/TP2-App_for_construction_management/public/";
 
-    // Neprihlásený
+//Neprihlásený
     if (!window.Laravel.isLoggedin)
     {
         if (to.path === base_path + 'home')
@@ -45,7 +44,7 @@ router.beforeEach((to, from) => {
         }
     }
 
-    // Prihlásený
+// Prihlásený
     if (window.Laravel.isLoggedin)
     {
         if (to.path === base_path + 'login')
