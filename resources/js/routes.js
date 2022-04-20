@@ -15,32 +15,32 @@ export const routes = [{
     },
     {
         name: 'login',
-        path: base_path +'login',
+        path: base_path + 'login',
         component: Login
     },
     {
         name: 'detailstaveniska',
-        path: base_path +'detailstaveniska',
+        path: base_path + 'detailstaveniska',
         component: DetailStaveniska
     },
     {
         name: 'zoznamsoferov',
-        path: base_path +'zoznamsoferov',
+        path: base_path + 'zoznamsoferov',
         component: ZoznamSoferov
     },
     {
         name: 'zoznamobjednavok',
-        path: base_path +'zoznamobjednavok',
+        path: base_path + 'zoznamobjednavok',
         component: ZoznamObjednavok
     },
     {
         name: 'zoznampersonalu',
-        path: base_path +'zoznampersonalu',
+        path: base_path + 'zoznampersonalu',
         component: ZoznamPersonalu
     },
     {
         name: 'zoznammaterialov',
-        path: base_path +'zoznammaterialov',
+        path: base_path + 'zoznammaterialov',
         component: ZoznamMaterialov
     },
     /* šablóna:

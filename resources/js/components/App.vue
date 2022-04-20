@@ -11,7 +11,6 @@ export default {
     data() {
         return {
             name: "",
-            isLoggedIn: false,
         }
     },
     created() {
