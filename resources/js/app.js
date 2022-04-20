@@ -30,7 +30,7 @@ require('./bootstrap');
 router.beforeEach((to, from) => {
     const base_path = "/TP2-App_for_construction_management/public/";
 
-//Neprihlásený
+// Neprihlásený
     if (!window.Laravel.isLoggedin)
     {
         if (to.path === base_path + 'home')
