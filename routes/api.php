@@ -26,4 +26,5 @@ Route::post('login',                    [App\Http\Controllers\API\LoginControlle
 Route::post('logout',                   [App\Http\Controllers\API\LogoutController::class,      'logout'])->middleware('auth:sanctum');
 Route::delete('user-removal/{id}',      [App\Http\Controllers\API\UsersController::class,       'removeUser']);
 
-//
+// CONSTRUCTIONS
+Route::post('constructions-list', [App\Http\Controllers\API\ConstructionsController::class, 'getList']);

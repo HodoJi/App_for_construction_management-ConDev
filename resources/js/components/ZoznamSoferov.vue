@@ -11,7 +11,6 @@
                     </div>
                 </div>
 
-
             </div>
             <div class="col-4 d-flex align-items-start justify-content-end">
                 <button type="button" class="btn btn-primary"><i class="fas fa-list text-black fs-6"></i></button>
@@ -39,7 +38,7 @@
                                 <li class="list-group-item align-middle">
                                     <div class="row g-0 justify-content-center">
                                         <div class="col">
-                                            <p class="fw-bold">Vozidlo: </p>
+                                            <p class="fw-bold">Vozidlo:</p>
                                         </div>
                                         <div class="col-auto">
                                             <div class="fw-bold text-center"></div>
@@ -52,7 +51,7 @@
                                 <li class="list-group-item align-middle">
                                     <div class="row g-0 justify-content-center">
                                         <div class="col">
-                                            <p class="fw-bold">Status: </p>
+                                            <p class="fw-bold">Status:</p>
                                         </div>
                                         <div class="col-auto">
                                             <div class="fw-bold text-center"></div>
@@ -65,7 +64,7 @@
                                 <li class="list-group-item align-middle">
                                     <div class="row g-0 justify-content-center">
                                         <div class="col">
-                                            <p class="fw-bold">Destinácia: </p>
+                                            <p class="fw-bold">Destinácia:</p>
                                         </div>
                                         <div class="col-auto">
                                             <div class="fw-bold text-center"></div>
@@ -98,7 +97,7 @@
     </div>
     <div class="d-flex position-absolute bottom-0 start-50 translate-middle-x mb-5 mt-auto">
         <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-warning">Sklad</button>
+            <button type="button" class="btn btn-warning me-1">Sklad</button>
             <button type="button" class="btn btn-primary w-100">Objednať</button>
         </div>
     </div>
@@ -115,7 +114,7 @@ export default {
     methods: {
         ChangeArrow(id) {
             console.log($("#"+id).html())
-                if ($("#"+id).html() == '<i class="fas fa-angle-down"></i>') {
+                if ($("#"+id).html() === '<i class="fas fa-angle-down"></i>') {
                     $("#"+id).html('<i class="fas fa-angle-up"></i>');
                 } else {
                     $("#"+id).html('<i class="fas fa-angle-down"></i>');
@@ -124,8 +123,6 @@ export default {
         }
     }
 }
-
-
 
 </script>
 

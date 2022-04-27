@@ -16,7 +16,7 @@ export default {
                 this.$axios.post('./api/logout')
                     .then(response => {
                         if (response.data.success) {
-                            window.location.href = "./login"
+                            window.location.href = this.$BASE_PATH + "login"
                         } else {
                             console.log(response)
                         }

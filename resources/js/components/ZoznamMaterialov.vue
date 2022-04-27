@@ -41,7 +41,7 @@
                             <div class="fw-bold text-center">Železo</div>
                         </div>
                         <div class="col text-end">
-                            <router-link :to="{ name: 'zoznampersonalu' }" class="btn btn-dark">1 t</router-link>
+                            <router-link :to="{ name: 'zoznamPersonalu' }" class="btn btn-dark">1 t</router-link>
                         </div>
                     </div>
                 </li>
@@ -54,7 +54,7 @@
                             <div class="fw-bold text-center">Cement</div>
                         </div>
                         <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamsoferov' }" class="btn btn-dark">22 kg</router-link>
+                            <router-link :to="{ name: 'zoznamSoferov' }" class="btn btn-dark">22 kg</router-link>
                         </div>
                     </div>
                 </li>
@@ -67,7 +67,7 @@
                             <div class="fw-bold text-center">Malta</div>
                         </div>
                         <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamobjednavok' }" class="btn btn-dark">12 kg</router-link>
+                            <router-link :to="{ name: 'zoznamObjednavok' }" class="btn btn-dark">12 kg</router-link>
                         </div>
                     </div>
                 </li>
@@ -80,7 +80,7 @@
                             <div class="fw-bold text-center">Tehla</div>
                         </div>
                         <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamobjednavok' }" class="btn btn-dark">120 ks</router-link>
+                            <router-link :to="{ name: 'zoznamObjednavok' }" class="btn btn-dark">120 ks</router-link>
                         </div>
                     </div>
                 </li>
@@ -93,7 +93,7 @@
                             <div class="fw-bold text-center">Ytong</div>
                         </div>
                         <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamobjednavok' }" class="btn btn-dark">44 ks</router-link>
+                            <router-link :to="{ name: 'zoznamObjednavok' }" class="btn btn-dark">44 ks</router-link>
                         </div>
                     </div>
                 </li>
@@ -106,7 +106,7 @@
                             <div class="fw-bold text-center">Sadrokartón</div>
                         </div>
                         <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamobjednavok' }" class="btn btn-dark">50 ks</router-link>
+                            <router-link :to="{ name: 'zoznamObjednavok' }" class="btn btn-dark">50 ks</router-link>
                         </div>
                     </div>
                 </li>
@@ -115,7 +115,7 @@
     </div>
     <div class="d-flex position-absolute bottom-0 start-50 translate-middle-x mb-5 mt-auto">
         <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-warning">Sklad</button>
+            <button type="button" class="btn btn-warning me-1">Sklad</button>
             <button type="button" class="btn btn-primary w-100">Objednať</button>
         </div>
     </div>
