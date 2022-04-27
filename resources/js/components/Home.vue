@@ -7,7 +7,7 @@
                         <h4 class="fw-bold">Zoznam stavenísk</h4>
                     </div>
                     <div class="col-12 mt-0 pt-0">
-                        <p class="small text-muted fw-light">Počet stavenísk: 3</p>
+                        <p class="small text-muted fw-light">Počet stavenísk: {{ constructions.length }}</p>
                     </div>
                 </div>
             </div>
@@ -16,52 +16,28 @@
             </div>
         </div>
         <div class="align-items-center justify-content-center">
-            <ul class="list-group">
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-primary">1.</button>
+            <ul class="list-group" v-for="(construction, index) in constructions">
+                <router-link :to="{ name: 'detailStaveniska' }" style="text-decoration: none">{{ /* TODO: { Aké stavenisko vyberiem, call na => construction.id } */ }}
+                    <li class="list-group-item align-middle">
+                        <div class="row g-0 justify-content-center">
+                            <div class="col">
+                                <button type="button" class="btn btn-primary">{{ index + 1 }}.</button>
+                            </div>
+                            <div class="col-auto">
+                                <div class="fw-bold text-center">{{ construction.title }}</div>
+                            </div>
+                            <div class="col text-end">
+                                <button class="btn btn-primary">?? <i class="fas fa-hard-hat"></i></button>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Bottova 5</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'detailstaveniska' }" class="btn btn-primary">4 <i class="fas fa-hard-hat"></i></router-link>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-primary">2.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Novozámocká 22</div>
-                        </div>
-                        <div class="col text-end">
-                            <button type="button" class="btn btn-primary">8 <i class="fas fa-hard-hat"></i></button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-primary">3.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Tr. A. Hlinku 1</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'detailstaveniska' }" class="btn btn-primary">6 <i class="fas fa-hard-hat"></i></router-link>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                </router-link>
             </ul>
         </div>
     </div>
     <div class="d-flex position-absolute bottom-0 start-50 translate-middle-x mb-5 mt-auto">
         <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-warning">Sklad</button>
+            <button type="button" class="btn btn-warning me-1">Sklad</button>
             <button type="button" class="btn btn-primary w-100">Objednať</button>
         </div>
     </div>
@@ -75,14 +51,43 @@
 <script>
 
 import BurgerMenu from "./BurgerMenu";
+import Swal from "sweetalert2";
+
 export default {
     name: "Home",
-    components:{BurgerMenu},
+    components:{
+        BurgerMenu
+    },
     data() {
         return{
-            name: "",
-            showModal: false
+            showModal: false,
+            constructions: [],
         }
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+
+            this.$axios.get('./sanctum/csrf-cookie').then(() => {
+                this.$axios.post('./api/constructions-list')
+                    .then(response => {
+
+                        if (response.data)
+                        {
+                            this.constructions = response.data;
+                        }
+                        else
+                        {
+                            Swal.fire({title: "Zoznam Stavenísk", text: "Chyba!", icon: "warning"});
+                        }
+
+                    })
+                    .catch(function (error){
+                        console.error(error);
+                        Swal.fire({title: "Zoznam Stavenísk", html: "Chyba:<br>" + error, icon: "warning"});
+                    });
+            })
+
+        })
     },
     methods: {
         //

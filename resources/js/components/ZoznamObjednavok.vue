@@ -98,7 +98,7 @@
     </div>
     <div class="d-flex position-absolute bottom-0 start-50 translate-middle-x mb-5 mt-auto">
         <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-warning">Sklad</button>
+            <button type="button" class="btn btn-warning me-1">Sklad</button>
             <button type="button" class="btn btn-primary w-100">Objednať</button>
         </div>
     </div>
@@ -124,8 +124,6 @@ export default {
         }
     }
 }
-
-
 
 </script>
 

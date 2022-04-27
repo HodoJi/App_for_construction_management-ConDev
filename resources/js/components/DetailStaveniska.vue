@@ -11,7 +11,6 @@
                     </div>
                 </div>
 
-
             </div>
             <div class="col-4 d-flex align-items-start justify-content-end">
                 <button type="button" @click="showModal = true" class="btn btn-info"><i class="fas fa-list text-black fs-6"></i></button>
@@ -19,64 +18,72 @@
         </div>
         <div class="align-items-center justify-content-center">
             <ul class="list-group">
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-info">1.</button>
+                <router-link :to="{ name: 'zoznamMaterialov' }" style="text-decoration: none">
+                    <li class="list-group-item align-middle">
+                        <div class="row g-0 justify-content-center">
+                            <div class="col">
+                                <button type="button" class="btn btn-info">1.</button>
+                            </div>
+                            <div class="col-auto">
+                                <div class="fw-bold text-center">Zoznam materiálov</div>
+                            </div>
+                            <div class="col text-end">
+                                <button class="btn btn-info"><i class="fas fa-angle-right"></i></button>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Zoznam materiálov</div>
+                    </li>
+                </router-link>
+                <router-link :to="{ name: 'zoznamPersonalu' }" style="text-decoration: none">
+                    <li class="list-group-item align-middle">
+                        <div class="row g-0 justify-content-center">
+                            <div class="col">
+                                <button type="button" class="btn btn-info">2.</button>
+                            </div>
+                            <div class="col-auto">
+                                <div class="fw-bold text-center">Zoznam personálu</div>
+                            </div>
+                            <div class="col text-end">
+                                <button class="btn btn-info"><i class="fas fa-angle-right"></i></button>
+                            </div>
                         </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznammaterialov' }" class="btn btn-info"><i class="fas fa-angle-right"></i></router-link>
+                    </li>
+                </router-link>
+                <router-link :to="{ name: 'zoznamSoferov' }" style="text-decoration: none">
+                    <li class="list-group-item align-middle">
+                        <div class="row g-0 justify-content-center">
+                            <div class="col">
+                                <button type="button" class="btn btn-info">3.</button>
+                            </div>
+                            <div class="col-auto">
+                                <div class="fw-bold text-center">Zoznam šoférov</div>
+                            </div>
+                            <div class="col text-end">
+                                <button class="btn btn-info"><i class="fas fa-angle-right"></i></button>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-info">2.</button>
+                    </li>
+                </router-link>
+                <router-link :to="{ name: 'zoznamObjednavok' }" style="text-decoration: none">
+                    <li class="list-group-item align-middle">
+                        <div class="row g-0 justify-content-center">
+                            <div class="col">
+                                <button type="button" class="btn btn-info">4.</button>
+                            </div>
+                            <div class="col-auto">
+                                <div class="fw-bold text-center">Zoznam objednávok</div>
+                            </div>
+                            <div class="col text-end">
+                                <button class="btn btn-info"><i class="fas fa-angle-right"></i></button>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Zoznam personálu</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznampersonalu' }" class="btn btn-info"><i class="fas fa-angle-right"></i></router-link>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-info">3.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Zoznam šoférov</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamsoferov' }" class="btn btn-info"><i class="fas fa-angle-right"></i></router-link>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-info">4.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Zoznam objednávok</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamobjednavok' }" class="btn btn-info"><i class="fas fa-angle-right"></i></router-link>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                </router-link>
             </ul>
         </div>
     </div>
     <div class="d-flex position-absolute bottom-0 start-50 translate-middle-x mb-5 mt-auto">
         <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-warning">Sklad</button>
+            <button type="button" class="btn btn-warning me-1">Sklad</button>
             <button type="button" class="btn btn-primary w-100">Objednať</button>
         </div>
     </div>

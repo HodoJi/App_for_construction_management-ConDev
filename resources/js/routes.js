@@ -19,34 +19,34 @@ export const routes = [{
         component: Login
     },
     {
-        name: 'detailstaveniska',
-        path: base_path + 'detailstaveniska',
+        name: 'detailStaveniska',
+        path: base_path + 'detail-staveniska',
         component: DetailStaveniska
     },
     {
-        name: 'zoznamsoferov',
-        path: base_path + 'zoznamsoferov',
+        name: 'zoznamSoferov',
+        path: base_path + 'zoznam-soferov',
         component: ZoznamSoferov
     },
     {
-        name: 'zoznamobjednavok',
-        path: base_path + 'zoznamobjednavok',
+        name: 'zoznamObjednavok',
+        path: base_path + 'zoznam-objednavok',
         component: ZoznamObjednavok
     },
     {
-        name: 'zoznampersonalu',
-        path: base_path + 'zoznampersonalu',
+        name: 'zoznamPersonalu',
+        path: base_path + 'zoznam-personalu',
         component: ZoznamPersonalu
     },
     {
-        name: 'zoznammaterialov',
-        path: base_path + 'zoznammaterialov',
+        name: 'zoznamMaterialov',
+        path: base_path + 'zoznam-materialov',
         component: ZoznamMaterialov
     },
     /* šablóna:
     {
-        name: 'newexample',
-        path: base_path + name,
+        name: 'newExample',
+        path: base_path + 'new-example',
         component: NewExample
     }
     */

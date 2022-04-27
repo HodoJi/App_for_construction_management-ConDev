@@ -9,11 +9,10 @@
         <form>
             <fieldset>
                 <legend class="fw-bold">Prihlásenie</legend>
-                <p class="small text-muted fw-light">Prihlás sa so svojim osobným kódom</p>
+                <p class="small text-muted fw-light">Prihláste sa so svojim osobným kľúčom</p>
                 <div class="form-group">
-                    <label for="personalId" class="form-label mt-4 text-danger fw-bold">Osobný kód</label>
-                    <input type="text" v-model="personalId" class="form-control border-0 border-bottom shadow-none" id="personalId" name="personalId" aria-describedby="personalCode" maxlength="9" minlength="9" required>
-                    <input type="hidden" name="password" value="0">
+                    <label for="personalId" class="form-label mt-4 text-danger fw-bold">Osobný kľúč</label>
+                    <input type="text" v-model="personalId" class="form-control border-0 border-bottom shadow-none" id="personalId" name="personalId" aria-describedby="personalCode" maxlength="9" minlength="9" autofocus required>
                 </div>
                 <div class="d-grid gap-2 mt-3">
                     <button class="btn btn-primary" type="submit" @click="handleLogin">Prihlásiť sa</button>
@@ -39,7 +38,6 @@ export default {
                 this.$axios.get('./sanctum/csrf-cookie').then(response => {
                     this.$axios.post('./api/login', {
                         personalId: this.personalId,
-                        password: 0
                     })
                         .then(response => {
                             console.log(response.data)
@@ -47,7 +45,7 @@ export default {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Úspech!',
-                                    text: 'Si prihlásený. Klikni na OK pre pokračovanie',
+                                    text: 'Ste prihlásený. Kliknite na OK pre pokračovanie.',
                                     showDenyButton: false,
                                     showCancelButton: false,
                                     confirmButtonText: 'OK',
@@ -70,8 +68,8 @@ export default {
                         .catch(function (error) {
                             console.error(error);
                             Swal.fire({
-                                title: "Prihlásenie",
-                                text: 'Účet bol zablokovaný na 1 hodinu. Príliš veľa pokusov o prihlásenie !',
+                                title: "Prihlásenie - Chyba",
+                                html: 'Z nejakého dôvodu sa prihlásenie nepodarilo!<br>Chyba: ' + error,
                                 icon: 'warning'
                             });
                         });
