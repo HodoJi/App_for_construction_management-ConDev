@@ -7,13 +7,15 @@
                         <h4 class="fw-bold">Detail staveniska</h4>
                     </div>
                     <div class="col-12 mt-0 pt-0">
-                        <p class="small text-muted fw-light">Tr. A. Hlinku 1 (stavenisko #3)</p>
+                        <p class="small text-muted fw-light">{{ constructionName }} (stavenisko
+                            #{{ constructionId }})</p>
                     </div>
                 </div>
 
             </div>
             <div class="col-4 d-flex align-items-start justify-content-end">
-                <button type="button" @click="showModal = true" class="btn btn-info"><i class="fas fa-list text-black fs-6"></i></button>
+                <button type="button" @click="showModal = true" class="btn btn-info"><i
+                    class="fas fa-list text-black fs-6"></i></button>
             </div>
         </div>
         <div class="align-items-center justify-content-center">
@@ -95,13 +97,44 @@
 
 <script>
 import BurgerMenu from "./BurgerMenu";
+import Swal from "sweetalert2";
+
 export default {
-    components:{BurgerMenu},
-    name: "DetailStaveniska",
+    name: "detailStaveniska",
+    components: {BurgerMenu},
     data() {
-        return{
+        return {
+            constructionId: null,
+            constructionName: "",
             showModal: false
         }
+    },
+    created() {
+        this.$nextTick(function () {
+            this.$axios.get(this.$BASE_PATH+'sanctum/csrf-cookie').then(() => {
+                this.$axios.get(this.$BASE_PATH+`api/getConstructionDetail/${this.$route.params.id}`)
+                    .then(response => {
+                        console.log(response);
+                        if (response.data[0]) {
+                            this.constructionId = response.data[0].id;
+                            this.constructionName = response.data[0].title;
+                        } else {
+                            Swal.fire({
+                                title: "Detail staveniska",
+                                text: "Chyba! " + response.data.message,
+                                icon: "warning"
+                            });
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                        Swal.fire({title: "Detail staveniska", html: "Chyba:<br>" + error, icon: "warning"});
+                    });
+            })
+
+
+        })
     },
     methods: {
         //

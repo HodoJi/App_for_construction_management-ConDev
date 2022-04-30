@@ -20,7 +20,7 @@ export const routes = [{
     },
     {
         name: 'detailStaveniska',
-        path: base_path + 'detail-staveniska',
+        path: base_path + 'detail-staveniska/:id',
         component: DetailStaveniska
     },
     {
