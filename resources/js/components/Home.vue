@@ -17,7 +17,7 @@
         </div>
         <div class="align-items-center justify-content-center">
             <ul class="list-group" v-for="(construction, index) in constructions">
-                <router-link :to="{ name: 'detailStaveniska' }" style="text-decoration: none"><!-- TODO: { Aké stavenisko vyberiem, call na => construction.id } -->
+                <router-link :to="{ name: `detailStaveniska`, params: {id: construction.id} }" style="text-decoration: none"><!-- TODO: { Aké stavenisko vyberiem, call na => construction.id } -->
                     <li class="list-group-item align-middle">
                         <div class="row g-0 justify-content-center">
                             <div class="col">
@@ -66,11 +66,10 @@ export default {
     },
     mounted: function () {
         this.$nextTick(function () {
-
             this.$axios.get('./sanctum/csrf-cookie').then(() => {
                 this.$axios.post('./api/constructions-list')
                     .then(response => {
-
+                        console.log(response);
                         if (response.data)
                         {
                             this.constructions = response.data;
