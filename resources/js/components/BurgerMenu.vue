@@ -12,8 +12,8 @@ export default {
     methods: {
         logout(e) {
             e.preventDefault()
-            this.$axios.get('./sanctum/csrf-cookie').then(response => {
-                this.$axios.post('./api/logout')
+            this.$axios.get(this.$BASE_PATH+'sanctum/csrf-cookie').then(response => {
+                this.$axios.post(this.$BASE_PATH+'api/logout')
                     .then(response => {
                         if (response.data.success) {
                             window.location.href = this.$BASE_PATH + "login"

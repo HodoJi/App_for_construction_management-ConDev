@@ -45,15 +45,15 @@ export default {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Úspech!',
-                                    text: 'Ste prihlásený. Kliknite na OK pre pokračovanie.',
+                                    text: 'Si prihlásený!',
                                     showDenyButton: false,
                                     showCancelButton: false,
-                                    confirmButtonText: 'OK',
+                                    confirmButtonText: 'Pokračovať',
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location.href = "./"
+                                        window.location.href = this.$BASE_PATH
                                     } else {
-                                        window.location.href = "./"
+                                        window.location.href = this.$BASE_PATH
                                     }
                                 });
                             } else {
