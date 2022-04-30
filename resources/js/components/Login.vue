@@ -15,7 +15,7 @@
                     <input type="text" v-model="personalId" class="form-control border-0 border-bottom shadow-none" id="personalId" name="personalId" aria-describedby="personalCode" maxlength="9" minlength="9" autofocus required>
                 </div>
                 <div class="d-grid gap-2 mt-3">
-                    <button class="btn btn-primary" type="submit" @click="handleLogin">Prihlásiť sa</button>
+                    <button id="loginBtn" class="btn btn-primary" type="submit" @click="handleLogin">Prihlásiť sa</button>
                 </div>
             </fieldset>
         </form>
@@ -24,6 +24,25 @@
 
 <script>
 import Swal from "sweetalert2";
+import jQuery from "jquery";
+
+jQuery(document).ready(function() {
+    jQuery("#loginBtn").prop("disabled", true);
+
+    jQuery("#personalId").on('input', function() {
+
+        if (jQuery("#personalId").val().length < 1)
+        {
+            jQuery("#loginBtn").prop("disabled", true);
+        }
+        else
+        {
+            jQuery("#loginBtn").prop("disabled", false);
+        }
+
+    })
+});
+
 export default {
     data() {
         return {

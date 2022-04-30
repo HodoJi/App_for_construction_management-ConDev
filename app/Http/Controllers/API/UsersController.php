@@ -8,6 +8,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+/**
+ * Class UsersController
+ * @package App\Http\Controllers\API
+ */
 class UsersController extends Controller
 {
     private $apiToken;

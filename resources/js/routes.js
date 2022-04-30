@@ -38,9 +38,9 @@ export const routes = [{
         path: base_path + 'zoznam-personalu',
         component: ZoznamPersonalu
     },
-    {
+    { // ↓ Zoznam materiálov na stavenisku ↓
         name: 'zoznamMaterialov',
-        path: base_path + 'zoznam-materialov',
+        path: base_path + 'zoznam-materialov/:id',
         component: ZoznamMaterialov
     },
     /* šablóna:

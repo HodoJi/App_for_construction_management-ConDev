@@ -9,6 +9,10 @@ use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\RateLimiter;
 
+/**
+ * Class LoginController
+ * @package App\Http\Controllers\API
+ */
 class LoginController extends Controller
 {
     public function loginUser(Request $request)

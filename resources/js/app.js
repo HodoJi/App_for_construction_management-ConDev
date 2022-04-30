@@ -31,7 +31,7 @@ require('./bootstrap');
 router.beforeEach((to, from) => {
     const base_path = "/TP2-App_for_construction_management/public/";
 
-// Neprihlásený
+    // Neprihlásený
     if (!window.Laravel.isLoggedin)
     {
         if (to.path === base_path + 'home')
@@ -43,9 +43,19 @@ router.beforeEach((to, from) => {
         {
             router.push(base_path + 'login');
         }
+
+        if(to.path.includes(base_path + 'detail-staveniska'))
+        {
+            router.push(base_path + 'login');
+        }
+
+        if(to.path.includes(base_path + 'zoznam-materialov'))
+        {
+            router.push(base_path + 'login');
+        }
     }
 
-// Prihlásený
+    // Prihlásený
     if (window.Laravel.isLoggedin)
     {
         if (to.path === base_path + 'login')
@@ -58,4 +68,5 @@ router.beforeEach((to, from) => {
         //     router.push(base_path);
         // }
     }
+
 });

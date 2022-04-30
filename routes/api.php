@@ -28,3 +28,4 @@ Route::delete('user-removal/{id}',      [App\Http\Controllers\API\UsersControlle
 
 // CONSTRUCTIONS
 Route::post('constructions-list', [App\Http\Controllers\API\ConstructionsController::class, 'getList']);
+Route::get('construction-material-show/{id}', [App\Http\Controllers\API\MaterialController::class, 'getMaterialOnConstruction']);
