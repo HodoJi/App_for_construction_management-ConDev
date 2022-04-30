@@ -11,102 +11,23 @@
                     </div>
                 </div>
 
-
             </div>
             <div class="col-4 d-flex align-items-start justify-content-end">
-                <button type="button" class="btn btn-dark"><i class="fas fa-list fs-6"></i></button>
+                <button type="button" @click="showModal = true" class="btn btn-dark"><i class="fas fa-list fs-6"></i></button>
             </div>
         </div>
         <div class="align-items-center justify-content-center">
-            <ul class="list-group">
+            <ul class="list-group" v-if="materials.length > 0" v-for="(material, index) in materials">
                 <li class="list-group-item align-middle">
                     <div class="row g-0 justify-content-center">
                         <div class="col">
-                            <button type="button" class="btn btn-dark">1.</button>
+                            <button type="button" class="btn btn-dark">{{index + 1}}.</button>
                         </div>
                         <div class="col-auto">
-                            <div class="fw-bold text-center">Drevo</div>
+                            <div class="fw-bold text-center">{{ material.material_title }}</div>
                         </div>
                         <div class="col text-end">
-                            <button type="button" class="btn btn-dark">60 ks</button>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-dark">2.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Železo</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamPersonalu' }" class="btn btn-dark">1 t</router-link>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-dark">3.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Cement</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamSoferov' }" class="btn btn-dark">22 kg</router-link>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-dark">4.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Malta</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamObjednavok' }" class="btn btn-dark">12 kg</router-link>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-dark">4.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Tehla</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamObjednavok' }" class="btn btn-dark">120 ks</router-link>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-dark">4.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Ytong</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamObjednavok' }" class="btn btn-dark">44 ks</router-link>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item align-middle">
-                    <div class="row g-0 justify-content-center">
-                        <div class="col">
-                            <button type="button" class="btn btn-dark">4.</button>
-                        </div>
-                        <div class="col-auto">
-                            <div class="fw-bold text-center">Sadrokartón</div>
-                        </div>
-                        <div class="col text-end">
-                            <router-link :to="{ name: 'zoznamObjednavok' }" class="btn btn-dark">50 ks</router-link>
+                            <button type="button" class="btn btn-dark">{{ material.moc_stock_count }} {{ material.mct_material_counter_type }}</button>
                         </div>
                     </div>
                 </li>
@@ -119,13 +40,67 @@
             <button type="button" class="btn btn-primary w-100">Objednať</button>
         </div>
     </div>
+    <Teleport to="body">
+        <BurgerMenu :show="showModal" @close="showModal = false">
+        </BurgerMenu>
+    </Teleport>
+
 </template>
 
 <script>
+import Swal from "sweetalert2";
+import BurgerMenu from "./BurgerMenu"
+
 export default {
     name: "ZoznamMaterialov",
+    components: {
+        BurgerMenu
+    },
     data() {
+        return {
+            showModal: false,
+            materials: [],
+        }
+    },
+    mounted: function () {
+        this.$nextTick(function () {
 
+            if(this.$route.params.id == null)
+            {
+                this.$router.push({name: 'home'})
+            }
+            else
+            {
+                this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
+                    this.$axios.get(this.$BASE_PATH + `api/construction-material-show/${this.$route.params.id}`)
+                        .then(response => {
+
+                            if (response.data)
+                            {
+                                this.materials = response.data
+
+                                if (this.materials.length > 0)
+                                    this.materials.success = true
+
+                                if (!this.materials.success)
+                                {
+                                    Swal.fire({title: "Zoznam materiálov", html: "Chyba:<br>" + "Nepodarilo sa nájsť žiadny záznam.", icon: "warning"});
+                                    this.$router.push({path: this.$BASE_PATH + `detail-staveniska/${this.$route.params.id}`})
+                                }
+                            }
+                            else
+                            {
+                                Swal.fire({title: "Zoznam materiálov", text: "Chyba!", icon: "warning"});
+                            }
+
+                        })
+                        .catch(function (error) {
+                            console.error(error);
+                            Swal.fire({title: "Zoznam materiálov", html: "Chyba:<br>" + error, icon: "warning"});
+                        });
+                })
+            }
+        })
     },
     methods: {
         //

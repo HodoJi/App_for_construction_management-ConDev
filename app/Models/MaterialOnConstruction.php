@@ -8,10 +8,10 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
- * Class Construction
+ * Class MaterialOnConstruction
  * @package App\Models
  */
-class Construction extends Authenticatable
+class MaterialOnConstruction extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -20,7 +20,7 @@ class Construction extends Authenticatable
      *
      * @var string
      */
-    protected $table = 'constructions';
+    protected $table = 'material_on_construction';
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +28,9 @@ class Construction extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'title',
+        'construction_id',
+        'material_id',
+        'stock_count',
     ];
 
     /**
