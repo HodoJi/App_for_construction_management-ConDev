@@ -17,10 +17,16 @@ class CreateMaterialOnConstructionTable extends Migration
         Schema::create('material_on_construction', function (Blueprint $table)
         {
             $table->id();
-            $table->integer('construction_id');
-            $table->integer('material_id');
+            $table->unsignedBigInteger('construction_id');
+            $table->unsignedBigInteger('material_id');
             $table->integer('stock_count')->default(1);
         });
+
+        Schema::table('material_on_construction', function($table) {
+            $table->foreign('construction_id')->references('id')->on('constructions');
+            $table->foreign('material_id')->references('id')->on('material');
+        });
+
     }
 
     /**

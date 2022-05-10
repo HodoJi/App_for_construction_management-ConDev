@@ -19,8 +19,13 @@ class CreateMaterialTable extends Migration
             $table->id('material_id');
             $table->string('material_idf', 50)->unique();
             $table->string('material_title', 150);
-            $table->integer('material_counter_type_id')->default(1);
+            $table->unsignedBigInteger('material_counter_type_id')->default(1);
         });
+
+        Schema::table('material', function($table) {
+            $table->foreign('material_counter_type_id')->references('id')->on('material_counter_type');
+        });
+
     }
 
     /**

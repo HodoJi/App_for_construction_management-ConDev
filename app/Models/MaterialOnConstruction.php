@@ -33,6 +33,14 @@ class MaterialOnConstruction extends Authenticatable
         'stock_count',
     ];
 
+    public function constructions(){
+        return $this->belongsTo('App\Models\Construction');
+    }
+
+    public function materials(){
+        return $this->belongsTo('App\Models\Material');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
