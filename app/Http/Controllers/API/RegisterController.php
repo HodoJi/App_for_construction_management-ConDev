@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
+/**
+ * Class RegisterController
+ * @package App\Http\Controllers\API
+ */
 class RegisterController extends Controller
 {
     private $apiToken;

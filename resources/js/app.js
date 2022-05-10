@@ -15,12 +15,12 @@ const router = createRouter({
 });
 
 const app = createApp(App);
-
 app.use(router);
 app.use(VueAxios, axios);
 
 app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$router = router;
+app.config.globalProperties.$BASE_PATH = "/TP2-App_for_construction_management/public/";
 
 router.isReady().then(() => app.mount("#app"));
 
@@ -43,6 +43,16 @@ router.beforeEach((to, from) => {
         {
             router.push(base_path + 'login');
         }
+
+        if(to.path.includes(base_path + 'detail-staveniska'))
+        {
+            router.push(base_path + 'login');
+        }
+
+        if(to.path.includes(base_path + 'zoznam-materialov'))
+        {
+            router.push(base_path + 'login');
+        }
     }
 
     // Prihlásený
@@ -53,9 +63,10 @@ router.beforeEach((to, from) => {
             router.push(base_path);
         }
 
-        if (to.path === base_path + 'register')
-        {
-            router.push(base_path);
-        }
+        // if (to.path === base_path + 'register')
+        // {
+        //     router.push(base_path);
+        // }
     }
+
 });

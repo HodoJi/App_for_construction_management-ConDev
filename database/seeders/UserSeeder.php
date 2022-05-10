@@ -17,9 +17,17 @@ class UserSeeder extends Seeder
     {
         $users = [
             1 => [
-                'name'  => 'admin',
-                'email' => 'admin@admin.test',
-                'password' => 'admin'
+                'name'  => 'Admin Doe',
+                'email' => 'admindoe@stavenisko.test',
+                'password' => '0',
+                'personalId' => '111222333'
+                //, 'role_id' => '1'
+            ],
+            2 => [
+                'name'  => 'Manager Doe',
+                'email' => 'managerdoe@stavenisko.test',
+                'password' => '0',
+                'personalId' => '333222111'
                 //, 'role_id' => '1'
             ]
         ];
@@ -34,7 +42,7 @@ class UserSeeder extends Seeder
                 $newUser->id = $id;
                 $newUser->name = $userData['name'];
                 $newUser->email = $userData['email'];
-                $newUser->password = Hash::make($userData['password']);
+                $newUser->personalId = $userData['personalId'];
 
                 //$newUser->role_id = $userData['role_id']; // MAY BE ADDED IN FUTURE.
 

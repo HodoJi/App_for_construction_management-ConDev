@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // USER MANAGEMENT
 Route::post('register',                 [App\Http\Controllers\API\RegisterController::class,    'register']);
-Route::post('login',                    [App\Http\Controllers\API\LoginController::class,       'login']);
+Route::post('login',                    [App\Http\Controllers\API\LoginController::class,       'loginUser']);
 Route::post('logout',                   [App\Http\Controllers\API\LogoutController::class,      'logout'])->middleware('auth:sanctum');
 Route::delete('user-removal/{id}',      [App\Http\Controllers\API\UsersController::class,       'removeUser']);
 
-//
+// CONSTRUCTIONS
+Route::post('constructions-list', [App\Http\Controllers\API\ConstructionsController::class, 'getList']);
+Route::get('construction-material-show/{id}', [App\Http\Controllers\API\MaterialController::class, 'getMaterialOnConstruction']);
+Route::get('getConstructionDetail/{id}', [App\Http\Controllers\API\ConstructionsController::class, 'getConstructionDetailsPage']);
