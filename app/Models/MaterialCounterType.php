@@ -38,6 +38,10 @@ class MaterialCounterType extends Authenticatable
         'material_counter_type',
     ];
 
+    public function materials(){
+        return $this->hasMany('App\Models\Material');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

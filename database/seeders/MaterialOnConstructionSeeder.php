@@ -55,7 +55,7 @@ class MaterialOnConstructionSeeder extends Seeder
 
         foreach ($list as $id => $item_data)
         {
-            $check = MaterialOnConstruction::find($id);
+            $check = DB::table("material_on_construction")->find($id);
 
             if(!$check)
             {
