@@ -21,14 +21,15 @@ class CreateUsersTable extends Migration
             $table->string('email', 250)->unique(); //: email
             $table->string('personalId', 9)->unique();
             $table->string('password')->default(bcrypt(0));
-
-            //$table->unsignedBigInteger('role_id'); // → MAY BE ADDED IN FUTURE.
-
+            $table->integer('act_construction')->nullable();
+            $table->unsignedBigInteger('role_id');
             $table->timestamps(); /*: created_at & edited_at; */
-
-            // foreign keys:
-            //$table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade'); // → MAY BE ADDED IN FUTURE.
         });
+
+        Schema::table('users', function($table) {
+            $table->foreign('role_id')->references('id')->on('roles');
+        });
+
     }
 
     /**

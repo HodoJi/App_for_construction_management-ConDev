@@ -23,7 +23,7 @@ class CreateMaterialTable extends Migration
         });
 
         Schema::table('material', function($table) {
-            $table->foreign('material_counter_type_id')->references('id')->on('material_counter_type');
+            $table->foreign('material_counter_type_id')->references('material_counter_type_id')->on('material_counter_type');
         });
 
     }

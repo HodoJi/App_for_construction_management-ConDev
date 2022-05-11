@@ -3,15 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/**
- * Class Material
- * @package App\Models
- */
-class Material extends Authenticatable
+class Role extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -20,14 +16,7 @@ class Material extends Authenticatable
      *
      * @var string
      */
-    protected $table = 'material';
-
-    /**
-     * ID.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'material_id';
+    protected $table = 'roles';
 
     /**
      * The attributes that are mass assignable.
@@ -35,17 +24,13 @@ class Material extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'material_idf',
-        'material_title',
-        'material_counter_type_id',
+        'user_role',
     ];
 
-    public function materialcountertypes(){
-        return $this->belongsTo('App\Models\MaterialCounterType');
+    public function users(){
+        return $this->hasMany('App\Models\User');
     }
-    public function materialonconstructions(){
-        return $this->hasMany('App\Models\MaterialOnConstruction');
-    }
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -62,3 +47,4 @@ class Material extends Authenticatable
     protected $casts = [];
 
 }
+

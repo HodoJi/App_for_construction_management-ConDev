@@ -32,9 +32,13 @@ class User extends Authenticatable
         'name',
         'email',
         'personalId',
-        'password'
-        // 'role_id', // MAY BE ADDED IN FUTURE.
+        'password',
+        'role_id'
     ];
+
+    public function roles(){
+        return $this->belongsTo('App\Models\Role');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

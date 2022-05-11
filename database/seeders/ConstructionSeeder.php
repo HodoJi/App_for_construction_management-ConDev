@@ -29,9 +29,9 @@ class ConstructionSeeder extends Seeder
 
         foreach ($constructions as $id => $constructionData)
         {
-            $construction = DB::table("constructions")->find($id);
+            $check = DB::table("constructions")->find($id);
 
-            if(!$construction)
+            if(!$check)
             {
                 $newConstruction = new Construction();
                 $newConstruction->id = $id;
