@@ -27,18 +27,12 @@
                                 <div class="fw-bold text-center">{{ construction.title }}</div>
                             </div>
                             <div class="col text-end">
-                                <button class="btn btn-primary">?? <i class="fas fa-hard-hat"></i></button>
+                                <button class="btn btn-primary">{{ construction.users_count }} <i class="fas fa-hard-hat"></i></button>
                             </div>
                         </div>
                     </li>
                 </router-link>
             </ul>
-        </div>
-    </div>
-    <div class="d-flex position-absolute bottom-0 start-50 translate-middle-x mb-5 mt-auto">
-        <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-warning me-1">Sklad</button>
-            <button type="button" class="btn btn-primary w-100">Objednať</button>
         </div>
     </div>
     <Teleport to="body">
@@ -69,7 +63,7 @@ export default {
             this.$axios.get('./sanctum/csrf-cookie').then(() => {
                 this.$axios.post('./api/constructions-list')
                     .then(response => {
-                        console.log(response);
+
                         if (response.data)
                         {
                             this.constructions = response.data;

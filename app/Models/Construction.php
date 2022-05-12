@@ -31,6 +31,16 @@ class Construction extends Authenticatable
         'title',
     ];
 
+    public function users(){
+        return $this->hasMany('App\Models\User');
+    }
+
+    public function materialonconstructions(){
+        return $this->hasMany('App\Models\MaterialOnConstruction');
+    }
+
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

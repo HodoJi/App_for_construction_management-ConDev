@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\API;
 
 
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -84,5 +85,7 @@ class MaterialController
             return Response()->json(array("success" => false));
         }
     }
+
+
 
 }

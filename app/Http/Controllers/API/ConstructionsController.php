@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\API;
 
 
+use App\Models\Construction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,8 @@ class ConstructionsController
     public function getList(): JsonResponse
     {
 
-        $selection = DB::select("SELECT id, title, created_at, updated_at FROM constructions ORDER BY created_at");
+        //$selection = DB::select("SELECT id, title, created_at, updated_at FROM constructions ORDER BY created_at");
+        $selection = Construction::withCount('users')->get();
 
         if ($selection) {
             return response()->json($selection);

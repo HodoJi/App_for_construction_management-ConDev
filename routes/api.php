@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// USER MANAGEMENT
+// USER MANAGEMENT (AUTHORIZATION)
 Route::post('register',                 [App\Http\Controllers\API\RegisterController::class,    'register']);
 Route::post('login',                    [App\Http\Controllers\API\LoginController::class,       'loginUser']);
 Route::post('logout',                   [App\Http\Controllers\API\LogoutController::class,      'logout'])->middleware('auth:sanctum');
@@ -31,3 +31,7 @@ Route::delete('user-removal/{id}',      [App\Http\Controllers\API\UsersControlle
 Route::post('constructions-list', [App\Http\Controllers\API\ConstructionsController::class, 'getList']);
 Route::get('construction-material-show/{id}', [App\Http\Controllers\API\MaterialController::class, 'getMaterialOnConstruction']);
 Route::get('getConstructionDetail/{id}', [App\Http\Controllers\API\ConstructionsController::class, 'getConstructionDetailsPage']);
+
+// USER/EMPLOYEE MANAGMENT
+Route::get('construction-workers-show/{id}', [App\Http\Controllers\API\UsersController::class, 'getWorkersOnConstruction']);
+Route::get('construction-drivers-show', [App\Http\Controllers\API\UsersController::class, 'getDrivers']);

@@ -40,7 +40,7 @@ class Material extends Authenticatable
         'material_counter_type_id',
     ];
 
-    public function materialcountertypes(){
+    public function materialcountertype(){
         return $this->belongsTo('App\Models\MaterialCounterType');
     }
     public function materialonconstructions(){

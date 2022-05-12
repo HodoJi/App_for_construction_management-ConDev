@@ -33,11 +33,16 @@ class User extends Authenticatable
         'email',
         'personalId',
         'password',
+        'construction_id',
         'role_id'
     ];
 
-    public function roles(){
+    public function role(){
         return $this->belongsTo('App\Models\Role');
+    }
+
+    public function construction(){
+        return $this->belongsTo('App\Models\Construction');
     }
 
     /**

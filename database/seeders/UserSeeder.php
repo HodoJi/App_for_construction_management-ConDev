@@ -37,6 +37,13 @@ class UserSeeder extends Seeder
                 'personalId' => '111333222',
                 'role_id' => '3'
             ],
+            4 => [
+                'name'  => 'Driver Doe',
+                'email' => 'driverdoe@stavenisko.test',
+                'password' => '0',
+                'personalId' => '222111333',
+                'role_id' => '4'
+            ],
 
         ];
 

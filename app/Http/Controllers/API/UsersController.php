@@ -96,4 +96,38 @@ class UsersController extends Controller
 
         return response()->json($result);
     }
+
+    public function getWorkersOnConstruction(int $construction_id): JsonResponse
+    {
+        $workers = DB::select("SELECT *  FROM users " .
+            "WHERE construction_id = {$construction_id} AND role_id = '3'"
+        );
+
+        if($workers)
+        {
+            return Response()->json($workers);
+        }
+        else
+        {
+            return Response()->json(array("success" => false));
+        }
+
+    }
+
+    public function getDrivers(): JsonResponse
+    {
+        $drivers = DB::select("SELECT *  FROM users WHERE role_id = '4'");
+
+        if($drivers)
+        {
+            return Response()->json($drivers);
+        }
+        else
+        {
+            return Response()->json(array("success" => false));
+        }
+
+    }
+
+
 }
