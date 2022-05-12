@@ -35,7 +35,7 @@ export const routes = [{
     },
     {
         name: 'zoznamPersonalu',
-        path: base_path + 'zoznam-personalu',
+        path: base_path + 'zoznam-personalu/:id',
         component: ZoznamPersonalu
     },
     { // ↓ Zoznam materiálov na stavenisku ↓

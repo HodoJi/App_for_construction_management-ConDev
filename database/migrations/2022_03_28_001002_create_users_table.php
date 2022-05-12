@@ -21,13 +21,14 @@ class CreateUsersTable extends Migration
             $table->string('email', 250)->unique(); //: email
             $table->string('personalId', 9)->unique();
             $table->string('password')->default(bcrypt(0));
-            $table->integer('act_construction')->nullable();
+            $table->unsignedBigInteger('construction_id')->nullable();
             $table->unsignedBigInteger('role_id');
             $table->timestamps(); /*: created_at & edited_at; */
         });
 
         Schema::table('users', function($table) {
             $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('construction_id')->references('id')->on('constructions');
         });
 
     }

@@ -6,16 +6,17 @@
                     <div class="col-12 mb-0 pb-0">
                         <h4 class="fw-bold">Zoznam materiálov</h4>
                     </div>
-                    <div class="col-12 mt-0 pt-0">
+                    <!--<div class="col-12 mt-0 pt-0">
                         <p class="small text-muted fw-light">Tr. A. Hlinku 1 (stavenisko #3)</p>
-                    </div>
+                    </div> -->
                 </div>
-
             </div>
+
             <div class="col-4 d-flex align-items-start justify-content-end">
                 <button type="button" @click="showModal = true" class="btn btn-dark"><i class="fas fa-list fs-6"></i></button>
             </div>
         </div>
+
         <div class="align-items-center justify-content-center">
             <ul class="list-group" v-if="materials.length > 0" v-for="(material, index) in materials">
                 <li class="list-group-item align-middle">
@@ -34,12 +35,13 @@
             </ul>
         </div>
     </div>
+
     <div class="d-flex position-absolute bottom-0 start-50 translate-middle-x mb-5 mt-auto">
         <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-warning me-1">Sklad</button>
-            <button type="button" class="btn btn-primary w-100">Objednať</button>
+            <button type="button" class="btn btn-dark">Objednať</button>
         </div>
     </div>
+
     <Teleport to="body">
         <BurgerMenu :show="showModal" @close="showModal = false">
         </BurgerMenu>
@@ -49,7 +51,7 @@
 
 <script>
 import Swal from "sweetalert2";
-import BurgerMenu from "./BurgerMenu"
+import BurgerMenu from "./BurgerMenu";
 
 export default {
     name: "ZoznamMaterialov",

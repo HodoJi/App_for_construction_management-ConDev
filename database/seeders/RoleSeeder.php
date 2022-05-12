@@ -24,6 +24,9 @@ class RoleSeeder extends Seeder
                 ],
 
                 3 => [
+                    'role_name' => 'worker',
+                ],
+                4 => [
                     'role_name' => 'driver',
                 ],
             ];
