@@ -85,7 +85,7 @@
     </div>
 
     <Teleport to="body">
-        <BurgerMenu :show="showModal" @close="showModal = false">
+        <BurgerMenu :show="showModal" @close="showModal = false" :role_id="role_id">
         </BurgerMenu>
     </Teleport>
 </template>
@@ -99,6 +99,7 @@ export default {
     components: {BurgerMenu},
     data() {
         return {
+            role_id: window.Laravel.user.role_id,
             constructionId: null,
             constructionName: "",
             showModal: false

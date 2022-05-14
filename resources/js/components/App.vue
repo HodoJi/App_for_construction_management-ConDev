@@ -10,7 +10,7 @@ export default {
     name: "App",
     data() {
         return {
-            name: "",
+            role_id: null,
             isLoggedIn: false
         }
     },
@@ -19,7 +19,7 @@ export default {
             this.isLoggedIn = true
         }
         if (window.Laravel.user) {
-            this.name = window.Laravel.user.name
+            this.role_id = window.Laravel.user.role_id
         }
     },
     beforeRouteEnter(to, from, next) {

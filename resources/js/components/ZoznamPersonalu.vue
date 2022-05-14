@@ -16,10 +16,35 @@
                 <button type="button" @click="showModal = true" class="btn btn-dark"><i class="fas fa-list fs-6"></i></button>
             </div>
         </div>
-
-            <div class="align-items-center justify-content-center">
-                <h4>Robotníci</h4>
-
+        <form class="border border-dark rounded opacity-75 p-3 mb-5" v-if="role_id <= 2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Vyhľadávanie podľa mena</label>
+                        <input class="form-control form-control-lg" id="inputName" type="text" placeholder="" aria-label=".form-control-lg example">
+                        <div id="nameHelp" class="form-text">Zadaj celé alebo čiastočné meno zamestnanca</div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-header bg-transparent p-0 mb-3 border-0">
+                                    <h5 class="card-title fw-bold">Worker Doe</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted small">worderdoe@tp2management.com</h6>
+                                </div>
+                                <p class="card-text">Worker Doe je práve priradený k stavenisku Tr. A. Hlinku (#1)</p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <button type="button" class="btn btn-primary float-end" @click="addUserToConstruction()"><i class="fas fa-check"></i> Pridať zamestnanca ku stavenisku</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+            <div class="align-items-center justify-content-center mb-5">
+                <h4>Personál</h4>
                 <ul class="list-group" v-if="workers.length > 0" v-for="(worker, index) in workers">
                     <li class="list-group-item align-middle">
                         <div class="row g-0 justify-content-center">
@@ -41,7 +66,7 @@
     </div>
 
     <Teleport to="body">
-        <BurgerMenu :show="showModal" @close="showModal = false">
+        <BurgerMenu :show="showModal" @close="showModal = false" :role_id="role_id">
         </BurgerMenu>
     </Teleport>
 
@@ -59,6 +84,7 @@ export default {
     },
     data() {
         return {
+            role_id: window.Laravel.user.role_id,
             showModal: false,
             workers: [],
         }
@@ -112,6 +138,8 @@ export default {
             } else {
                 $("#"+id).html('<i class="fas fa-angle-down"></i>');
             }
+        },
+        addUserToConstruction(){
 
         }
     }

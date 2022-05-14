@@ -43,7 +43,7 @@
     </div>
 
     <Teleport to="body">
-        <BurgerMenu :show="showModal" @close="showModal = false">
+        <BurgerMenu :show="showModal" @close="showModal = false" :role_id="role_id">
         </BurgerMenu>
     </Teleport>
 
@@ -60,6 +60,7 @@ export default {
     },
     data() {
         return {
+            role_id: window.Laravel.user.role_id,
             showModal: false,
             materials: [],
         }
