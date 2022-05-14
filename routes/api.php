@@ -35,3 +35,5 @@ Route::get('getConstructionDetail/{id}', [App\Http\Controllers\API\Constructions
 // USER/EMPLOYEE MANAGMENT
 Route::get('construction-workers-show/{id}', [App\Http\Controllers\API\UsersController::class, 'getWorkersOnConstruction']);
 Route::get('construction-drivers-show', [App\Http\Controllers\API\UsersController::class, 'getDrivers']);
+Route::post('construction-find-employees', [App\Http\Controllers\API\UsersController::class, 'findUsersForConstruction']);
+Route::put('construction-assign-employee', [App\Http\Controllers\API\UsersController::class, 'assignUserToConstruction']);
