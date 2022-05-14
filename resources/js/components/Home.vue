@@ -27,7 +27,7 @@
                                 <div class="fw-bold text-center">{{ construction.title }}</div>
                             </div>
                             <div class="col text-end">
-                                <button class="btn btn-primary">{{ construction.users_count }} <i class="fas fa-hard-hat"></i></button>
+                                <button class="btn btn-primary">{{ construction.users_count }} <i class="fas fa-users"></i></button>
                             </div>
                         </div>
                     </li>
@@ -36,7 +36,7 @@
         </div>
     </div>
     <Teleport to="body">
-        <BurgerMenu :show="showModal" @close="showModal = false">
+        <BurgerMenu :show="showModal" @close="showModal = false" :role_id="role_id">
         </BurgerMenu>
     </Teleport>
 
@@ -54,6 +54,7 @@ export default {
     },
     data() {
         return{
+            role_id: window.Laravel.user.role_id,
             showModal: false,
             constructions: [],
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -97,10 +98,14 @@ class UsersController extends Controller
         return response()->json($result);
     }
 
+    /**
+     * @param int $construction_id
+     * @return JsonResponse
+     */
     public function getWorkersOnConstruction(int $construction_id): JsonResponse
     {
         $workers = DB::select("SELECT *  FROM users " .
-            "WHERE construction_id = {$construction_id} AND role_id = '3'"
+            "WHERE construction_id = {$construction_id}"
         );
 
         if($workers)
@@ -114,6 +119,10 @@ class UsersController extends Controller
 
     }
 
+    /**
+     * Get drivers
+     * @return JsonResponse
+     */
     public function getDrivers(): JsonResponse
     {
         $drivers = DB::select("SELECT *  FROM users WHERE role_id = '4'");
@@ -128,6 +137,27 @@ class UsersController extends Controller
         }
 
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function addNewUser(Request $request) : JsonResponse
+    {
+        $personalCode = 000111222;
+        return Response()->json(array("success" => "true", "message" => "Zamestnanec úspešne vytvorený! Osobný kód na príhlásenie: ".$personalCode));
+    }
+
+    /**
+     * Najdi zamestnanca podla vyhladavania a prirad k stavenisku
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function findUsersForConstruction(Request $request) : JsonResponse
+    {
+        return Response()->json(array("success" => "true", "message" => "Zamestnanec bol priradený k stavenisku."));
+    }
+
 
 
 }

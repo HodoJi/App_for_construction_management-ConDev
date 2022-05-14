@@ -14,7 +14,7 @@
 
             </div>
             <div class="col-4 d-flex align-items-start justify-content-end">
-                <button type="button" class="btn btn-primary"><i class="fas fa-list text-black fs-6"></i></button>
+                <button type="button" @click="showModal = true" class="btn btn-dark"><i class="fas fa-list fs-6"></i></button>
             </div>
         </div>
         <div class="align-items-center justify-content-center">
@@ -96,20 +96,25 @@
             </ul>
         </div>
     </div>
-    <div class="d-flex position-absolute bottom-0 start-50 translate-middle-x mb-5 mt-auto">
-        <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-warning me-1">Sklad</button>
-            <button type="button" class="btn btn-primary w-100">Objednať</button>
-        </div>
-    </div>
+    <Teleport to="body">
+        <BurgerMenu :show="showModal" @close="showModal = false" :role_id="role_id">
+        </BurgerMenu>
+    </Teleport>
 </template>
 
 <script>
 
 import $ from "jquery";
+import BurgerMenu from "./BurgerMenu";
 export default {
     name: "ZoznamObjednavok",
+    components: {
+        BurgerMenu
+    },
     data() {
+        return{
+            role_id: window.Laravel.user.role_id,
+        }
 
     },
     methods: {

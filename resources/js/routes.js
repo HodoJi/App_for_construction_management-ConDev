@@ -5,6 +5,9 @@ import ZoznamSoferov from "./components/ZoznamSoferov";
 import ZoznamObjednavok from "./components/ZoznamObjednavok";
 import ZoznamPersonalu from "./components/ZoznamPersonalu";
 import ZoznamMaterialov from "./components/ZoznamMaterialov";
+import e401 from "./components/e401";
+import addUser from "./components/addUser";
+import editUser from "./components/editUser";
 
 const base_path = "/TP2-App_for_construction_management/public/";
 
@@ -42,6 +45,21 @@ export const routes = [{
         name: 'zoznamMaterialov',
         path: base_path + 'zoznam-materialov/:id',
         component: ZoznamMaterialov
+    },
+    {
+        name: 'e401',
+        path: base_path + '401',
+        component: e401
+    },
+    {
+        name: 'addUser',
+        path: base_path + 'pridat-zamestnanca',
+        component: addUser
+    },
+    {
+        name: 'editUser',
+        path: base_path + 'upravit-zamestnanca/:id',
+        component: editUser
     },
     /* šablóna:
     {
