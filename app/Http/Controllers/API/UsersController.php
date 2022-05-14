@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Database\Console\Migrations\ResetCommand;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -32,12 +34,9 @@ class UsersController extends Controller
     {
         $users = DB::select("SELECT * FROM users");
 
-        if ($users)
-        {
+        if ($users) {
             return response()->json($users);
-        }
-        else
-        {
+        } else {
             return response()->json(array("success" => false));
         }
     }
@@ -45,18 +44,15 @@ class UsersController extends Controller
     /**
      * Checks if user exist function
      *
+     * @return bool
      * @var Integer $user_id
      *
-     * @return bool
      */
     public function doesUserExist($user_id): bool
     {
-        try
-        {
-            return ( (User::where('id', '=', $user_id)->first()) != null );
-        }
-        catch (\Exception $ex)
-        {
+        try {
+            return ((User::where('id', '=', $user_id)->first()) != null);
+        } catch (\Exception $ex) {
             return false;
         }
     }
@@ -64,28 +60,22 @@ class UsersController extends Controller
     /**
      * User removal function
      *
+     * @return JsonResponse
      * @var Integer $user_id
      *
-     * @return JsonResponse
      */
     public function removeUser($user_id): JsonResponse
     {
-        try
-        {
-            if( ( $userToRemove = User::where('id', '=', $user_id)->where('id', '!=', 1)->first() ) == null )
-            {
+        try {
+            if (($userToRemove = User::where('id', '=', $user_id)->where('id', '!=', 1)->first()) == null) {
                 $success = false;
                 $message = "Daný používateľ neexistuje alebo ho nie je možné odstrániť!";
-            }
-            else
-            {
+            } else {
                 $userToRemove->delete();
                 $success = true;
                 $message = "Používateľ {$userToRemove->name} bol odstránený.";
             }
-        }
-        catch (\Exception $ex)
-        {
+        } catch (\Exception $ex) {
             $success = false;
             $message = "Chyba!: {$ex->getMessage()}";
         }
@@ -108,12 +98,9 @@ class UsersController extends Controller
             "WHERE construction_id = {$construction_id}"
         );
 
-        if($workers)
-        {
+        if ($workers) {
             return Response()->json($workers);
-        }
-        else
-        {
+        } else {
             return Response()->json(array("success" => false));
         }
 
@@ -127,12 +114,9 @@ class UsersController extends Controller
     {
         $drivers = DB::select("SELECT *  FROM users WHERE role_id = '4'");
 
-        if($drivers)
-        {
+        if ($drivers) {
             return Response()->json($drivers);
-        }
-        else
-        {
+        } else {
             return Response()->json(array("success" => false));
         }
 
@@ -142,10 +126,10 @@ class UsersController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function addNewUser(Request $request) : JsonResponse
+    public function addNewUser(Request $request): JsonResponse
     {
         $personalCode = 000111222;
-        return Response()->json(array("success" => "true", "message" => "Zamestnanec úspešne vytvorený! Osobný kód na príhlásenie: ".$personalCode));
+        return Response()->json(array("success" => "true", "message" => "Zamestnanec úspešne vytvorený! Osobný kód na príhlásenie: " . $personalCode));
     }
 
     /**
@@ -153,11 +137,43 @@ class UsersController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function findUsersForConstruction(Request $request) : JsonResponse
+    public function findUsersForConstruction(Request $request): JsonResponse
     {
-        return Response()->json(array("success" => "true", "message" => "Zamestnanec bol priradený k stavenisku."));
+        $authUserId = DB::table('users')
+            ->where('id', '=', Auth::id())->value("role_id");
+        $searchedString = trim($request->employeeName);
+        if ($authUserId <= 2) {
+            $foundUsers = DB::select("SELECT users.id, users.name, users.email, constructions.id AS cID, constructions.title  FROM users INNER JOIN constructions ON constructions.id=users.construction_id WHERE users.name LIKE '%$searchedString%'");
+            if ($foundUsers) {
+                return Response()->json(["success" => true, "users" => $foundUsers]);
+            } else {
+                return Response()->json(array("success" => false, "message" => "Nenašli sa žiadni zamestnanci s takýmto menom: " . $searchedString));
+            }
+        } else {
+            return Response()->json(array("success" => false, "message" => "Nemáš dostatočné práva na vykonanie tejto akcie."));
+        }
     }
 
+    public function assignUserToConstruction(Request $request): JsonResponse
+    {
+        $authUserId = DB::table('users')
+            ->where('id', '=', Auth::id())->value("role_id");
+        $userIdToAssign = trim($request->id);
+        $constrIdToAssignTo = trim($request->constrId);
+        if ($authUserId <= 2) {
+            $alreadyAssignedToCurrentConstr = DB::select("SELECT id, construction_id FROM users WHERE id = $userIdToAssign AND construction_id = $constrIdToAssignTo");
+            if($alreadyAssignedToCurrentConstr){
+                return Response()->json(["success" => false, "message" => "Zamestnanec už je priradený k tomuto stavenisku!"]);
+            }  else {
+                $constr = User::find($userIdToAssign);
+                $constr->construction_id = $constrIdToAssignTo;
+                $constr->update();
+                return Response()->json(["success" => true, "message" => "Zamestnanec úspešne priradený k stavenisku."]);
+            }
+        } else {
+            return Response()->json(array("success" => false, "message" => "Nemáš dostatočné práva na vykonanie tejto akcie."));
+        }
+    }
 
 
 }

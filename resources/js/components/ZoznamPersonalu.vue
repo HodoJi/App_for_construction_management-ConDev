@@ -6,9 +6,10 @@
                     <div class="col-12 mb-0 pb-0">
                         <h4 class="fw-bold">Zoznam personálu</h4>
                     </div>
-                    <!-- <div class="col-12 mt-0 pt-0">
-                        <p class="small text-muted fw-light">Tr. A. Hlinku 1 (stavenisko #3)</p>
-                    </div> -->
+                    <div class="col-12 mt-0 pt-0">
+                        <p class="small text-muted fw-light">{{ constructionName }} (stavenisko
+                            #{{ constructionNumber }})</p>
+                    </div>
                 </div>
 
             </div>
@@ -21,22 +22,22 @@
                 <div class="col-12">
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Vyhľadávanie podľa mena</label>
-                        <input class="form-control form-control-lg" id="inputName" type="text" placeholder="" aria-label=".form-control-lg example">
+                        <input class="form-control form-control-lg" id="inputName" type="text" @keyup="findUsers" v-model="employeeName" placeholder="" aria-label=".form-control-lg example">
                         <div id="nameHelp" class="form-text">Zadaj celé alebo čiastočné meno zamestnanca</div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-3" v-for="employee in searchedWorkers.users" :key="employee.id">
                     <div class="mb-3">
-                        <div class="card">
+                        <div class="card " :class="{'bg-warning bg-opacity-75' : employee.cID == this.$route.params.id}">
                             <div class="card-body">
                                 <div class="card-header bg-transparent p-0 mb-3 border-0">
-                                    <h5 class="card-title fw-bold">Worker Doe</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted small">worderdoe@tp2management.com</h6>
+                                    <h5 class="card-title fw-bold">{{ employee.name }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted small fw-lighter">{{employee.email}}</h6>
                                 </div>
-                                <p class="card-text">Worker Doe je práve priradený k stavenisku Tr. A. Hlinku (#1)</p>
+                                <p class="card-text small"><span class="fw-bold">{{ employee.name }}</span> je práve priradený/á k stavenisku <span class="fw-bold">{{employee.title}}</span> (#{{employee.cID}})</p>
                             </div>
                             <div class="card-footer bg-transparent">
-                                <button type="button" class="btn btn-primary float-end" @click="addUserToConstruction()"><i class="fas fa-check"></i> Pridať zamestnanca ku stavenisku</button>
+                                <button type="button" class="btn btn-success float-end" @click="addUserToConstruction(employee.id)"><i class="fas fa-check"></i> Pridať zamestnanca ku stavenisku</button>
                             </div>
                         </div>
                     </div>
@@ -84,41 +85,101 @@ export default {
     },
     data() {
         return {
+            employeeName: "",
             role_id: window.Laravel.user.role_id,
             showModal: false,
             workers: [],
+            searchedWorkers: [],
+            constructionName: "",
+            constructionNumber: null
         }
     },
+    mounted(){
+        this.getConstructionName();
+        this.getEmployeeList();
+    },
+    methods: {
+        getConstructionName(){
+            this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
+                this.$axios.get(this.$BASE_PATH + `api/getConstructionDetail/${this.$route.params.id}`)
+                    .then(response => {
+                        console.log(response.data)
+                        this.constructionName = response.data[0].title;
+                        this.constructionNumber = response.data[0].id;
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                        Swal.fire({title: "Zoznam robotníkov", html: "Chyba:<br>" + error, icon: "warning"});
+                    });
+            })
+        },
+        getEmployeeList () {
+            this.workers = []
+            this.$nextTick(function () {
 
-    mounted: function () {
-        this.$nextTick(function () {
+                if(this.$route.params.id == null)
+                {
+                    this.$router.push({name: 'home'})
+                }
+                else
+                {
+                    this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
+                        this.$axios.get(this.$BASE_PATH + `api/construction-workers-show/${this.$route.params.id}`)
+                            .then(response => {
 
-            if(this.$route.params.id == null)
-            {
-                this.$router.push({name: 'home'})
+                                if (response.data)
+                                {
+                                    this.workers = response.data
+
+                                    if (this.workers.length > 0)
+                                        this.workers.success = true
+
+                                    if (!this.workers.success)
+                                    {
+                                        Swal.fire({title: "Zoznam robotníkov", html: "Chyba:<br>" + "Žiadny personál nie je na stavenisku.", icon: "warning"});
+                                    }
+                                }
+                                else
+                                {
+                                    Swal.fire({title: "Zoznam robotníkov", text: "Chyba!", icon: "warning"});
+                                }
+
+                            })
+                            .catch(function (error) {
+                                console.error(error);
+                                Swal.fire({title: "Zoznam robotníkov", html: "Chyba:<br>" + error, icon: "warning"});
+                            });
+                    })
+                }
+            })
+        },
+        ChangeArrow(id) {
+            console.log($("#"+id).html())
+            if ($("#"+id).html() === '<i class="fas fa-angle-down"></i>') {
+                $("#"+id).html('<i class="fas fa-angle-up"></i>');
+            } else {
+                $("#"+id).html('<i class="fas fa-angle-down"></i>');
             }
-            else
-            {
+        },
+        addUserToConstruction(id){
+            if(id > 0){
                 this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
-                    this.$axios.get(this.$BASE_PATH + `api/construction-workers-show/${this.$route.params.id}`)
+                    this.$axios.put(this.$BASE_PATH + `api/construction-assign-employee`, {id:id, constrId:this.$route.params.id})
                         .then(response => {
-
                             if (response.data)
                             {
-                                this.workers = response.data
-
-                                if (this.workers.length > 0)
-                                    this.workers.success = true
-
-                                if (!this.workers.success)
+                                if (!response.data.success)
                                 {
-                                    Swal.fire({title: "Zoznam robotníkov", html: "Chyba:<br>" + "Nepodarilo sa nájsť žiadny záznam.", icon: "warning"});
-                                    this.$router.push({path: this.$BASE_PATH + `detail-staveniska/${this.$route.params.id}`})
+                                    Swal.fire({title: "Personál", html: "Chyba:<br>" + response.data.message, icon: "warning"});
+                                } else {
+                                    Swal.fire({title: "Personál", html: response.data.message, icon: "success"});
                                 }
+                                this.findUsers();
+                                this.getEmployeeList();
                             }
                             else
                             {
-                                Swal.fire({title: "Zoznam robotníkov", text: "Chyba!", icon: "warning"});
+                                Swal.fire({title: "Personál", text: "Chyba!", icon: "warning"});
                             }
 
                         })
@@ -128,19 +189,36 @@ export default {
                         });
                 })
             }
-        })
-    },
-    methods: {
-        ChangeArrow(id) {
-            console.log($("#"+id).html())
-            if ($("#"+id).html() === '<i class="fas fa-angle-down"></i>') {
-                $("#"+id).html('<i class="fas fa-angle-up"></i>');
-            } else {
-                $("#"+id).html('<i class="fas fa-angle-down"></i>');
-            }
         },
-        addUserToConstruction(){
+        findUsers(){
+            if(this.employeeName.length > 2){
+                this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
+                    this.$axios.post(this.$BASE_PATH + `api/construction-find-employees`, {employeeName:this.employeeName})
+                        .then(response => {
+                            if (response.data)
+                            {
+                                this.searchedWorkers = []
+                                this.searchedWorkers = response.data
+                                if (!this.searchedWorkers.success)
+                                {
+                                    Swal.fire({title: "Personál", html: "Chyba:<br>" + this.searchedWorkers.message, icon: "warning"});
+                                }
+                            }
+                            else
+                            {
+                                Swal.fire({title: "Personál", text: "Chyba!", icon: "warning"});
+                                this.$router.push({path: this.$BASE_PATH + `detail-staveniska/${this.$route.params.id}`})
+                            }
 
+                        })
+                        .catch(function (error) {
+                            console.error(error);
+                            Swal.fire({title: "Zoznam robotníkov", html: "Chyba:<br>" + error, icon: "warning"});
+                        });
+                })
+            } else {
+                this.searchedWorkers = []
+            }
         }
     }
 }
