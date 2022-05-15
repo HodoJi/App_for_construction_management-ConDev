@@ -28,13 +28,14 @@
                 </div>
                 <div class="col-3" v-for="employee in searchedWorkers.users" :key="employee.id">
                     <div class="mb-3">
-                        <div class="card " :class="{'bg-warning bg-opacity-75' : employee.cID == this.$route.params.id}">
+                        <div class="card " :class="{'bg-warning bg-opacity-75' : employee.cID == this.$route.params.id, 'bg-danger bg-opacity-50' : employee.cID == null}">
                             <div class="card-body">
                                 <div class="card-header bg-transparent p-0 mb-3 border-0">
                                     <h5 class="card-title fw-bold">{{ employee.name }}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted small fw-lighter">{{employee.email}}</h6>
                                 </div>
-                                <p class="card-text small"><span class="fw-bold">{{ employee.name }}</span> je práve priradený/á k stavenisku <span class="fw-bold">{{employee.title}}</span> (#{{employee.cID}})</p>
+                                <p class="card-text small" v-if="employee.cID !== null"><span class="fw-bold">{{ employee.name }}</span> už je priradený/á k stavenisku <span class="fw-bold">{{employee.title}}</span> (#{{employee.cID}})</p>
+                                <p class="card-text small" v-if="employee.cID == null"><span class="fw-bold">{{ employee.name }}</span> ešte nie je priradený/á k žiadnemu stavenisku!</p>
                             </div>
                             <div class="card-footer bg-transparent">
                                 <button type="button" class="btn btn-success float-end" @click="addUserToConstruction(employee.id)"><i class="fas fa-check"></i> Pridať zamestnanca ku stavenisku</button>
@@ -170,6 +171,7 @@ export default {
                             {
                                 if (!response.data.success)
                                 {
+
                                     Swal.fire({title: "Personál", html: "Chyba:<br>" + response.data.message, icon: "warning"});
                                 } else {
                                     Swal.fire({title: "Personál", html: response.data.message, icon: "success"});
@@ -199,6 +201,7 @@ export default {
                             {
                                 this.searchedWorkers = []
                                 this.searchedWorkers = response.data
+
                                 if (!this.searchedWorkers.success)
                                 {
                                     Swal.fire({title: "Personál", html: "Chyba:<br>" + this.searchedWorkers.message, icon: "warning"});
