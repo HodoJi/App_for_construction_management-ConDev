@@ -22,10 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // USER MANAGEMENT (AUTHORIZATION)
-Route::post('register',                 [App\Http\Controllers\API\RegisterController::class,    'register']);
 Route::post('login',                    [App\Http\Controllers\API\LoginController::class,       'loginUser']);
 Route::post('logout',                   [App\Http\Controllers\API\LogoutController::class,      'logout'])->middleware('auth:sanctum');
 Route::delete('user-removal/{id}',      [App\Http\Controllers\API\UsersController::class,       'removeUser']);
+Route::post('createUser',               [App\Http\Controllers\API\RegisterController::class,    'registerUser']);
+Route::post('showExistingUsers',        [App\Http\Controllers\API\UsersController::class,       'getUsersList']);
 
 // CONSTRUCTIONS
 Route::post('constructions-list', [App\Http\Controllers\API\ConstructionsController::class, 'getList']);
@@ -37,5 +38,3 @@ Route::get('construction-workers-show/{id}', [App\Http\Controllers\API\UsersCont
 Route::get('construction-drivers-show', [App\Http\Controllers\API\UsersController::class, 'getDrivers']);
 Route::post('construction-find-employees', [App\Http\Controllers\API\UsersController::class, 'findUsersForConstruction']);
 Route::put('construction-assign-employee', [App\Http\Controllers\API\UsersController::class, 'assignUserToConstruction']);
-
-Route::put('addNewUser', [App\Http\Controllers\API\UsersController::class, 'addNewUser']);

@@ -32,7 +32,6 @@ class User extends Authenticatable
         'name',
         'email',
         'personalId',
-        'password',
         'construction_id',
         'role_id'
     ];
@@ -64,11 +63,9 @@ class User extends Authenticatable
         // 'email_verified_at' => 'datetime',
     ];
 
-    /*
     // Checks user role
     public function hasRole($user_id, $role_id)
     {
         return User::where('role_id', $role_id)->where('id', $user_id)->get();
     }
-    */
 }

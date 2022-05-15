@@ -7,8 +7,7 @@
                         <h4 class="fw-bold">Detail staveniska</h4>
                     </div>
                     <div class="col-12 mt-0 pt-0">
-                        <p class="small text-muted fw-light">{{ constructionName }} (stavenisko
-                            #{{ constructionId }})</p>
+                        <p class="small text-muted fw-light">{{ constructionName }} (stavenisko #{{ constructionId }})</p>
                     </div>
                 </div>
 

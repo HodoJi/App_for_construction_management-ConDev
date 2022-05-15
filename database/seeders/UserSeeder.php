@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -16,33 +15,29 @@ class UserSeeder extends Seeder
     public function run()
     {
         $users = [
-            1 => [
+            1 => [ // Admin:r#1
                 'name'  => 'Admin Doe',
                 'email' => 'admindoe@stavenisko.test',
-                'password' => '0',
                 'personalId' => '111222333',
-                'role_id' => '1'
+                'role_id' => '1',
             ],
-            2 => [
-                'name'  => 'Manager Doe',
-                'email' => 'managerdoe@stavenisko.test',
-                'password' => '0',
+            2 => [ // Stavbyvedúci:r#2
+                'name'  => 'Stavbyvedúci Doe',
+                'email' => 'stavbyveducidoe@stavenisko.test',
+                'personalId' => '222333111',
+                'role_id' => '2',
+            ],
+            3 => [ // Robotník:r#3
+                'name'  => 'Robotník Doe',
+                'email' => 'robotnikdoe@stavenisko.test',
                 'personalId' => '333222111',
-                'role_id' => '2'
+                'role_id' => '3',
             ],
-            3 => [
-                'name'  => 'Worker Doe',
-                'email' => 'workerdoe@stavenisko.test',
-                'password' => '0',
-                'personalId' => '111333222',
-                'role_id' => '3'
-            ],
-            4 => [
-                'name'  => 'Driver Doe',
-                'email' => 'driverdoe@stavenisko.test',
-                'password' => '0',
-                'personalId' => '222111333',
-                'role_id' => '4'
+            4 => [ // Šofér:r#4
+                'name'  => 'Šofér Doe',
+                'email' => 'soferdoe@stavenisko.test',
+                'personalId' => '444333222',
+                'role_id' => '4',
             ],
 
         ];
