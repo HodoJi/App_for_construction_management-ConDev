@@ -51,6 +51,25 @@ class MaterialSeeder extends Seeder
                 'material_title'            => 'Sádrokartón',
                 'material_counter_type_id'  => 1,
             ],
+
+
+            8 => [
+                'material_idf'              => 'strk',
+                'material_title'            => 'Štrk',
+                'material_counter_type_id'  => 2,
+            ],
+            9 => [
+                'material_idf'              => 'izolacia',
+                'material_title'            => 'Izolácia',
+                'material_counter_type_id'  => 1,
+            ],
+            10 => [
+                'material_idf'              => 'silikon',
+                'material_title'            => 'Silikón',
+                'material_counter_type_id'  => 1,
+            ],
+
+
         ];
 
         foreach ($list as $id => $item_data)

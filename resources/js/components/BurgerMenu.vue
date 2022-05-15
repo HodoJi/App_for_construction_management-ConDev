@@ -47,6 +47,7 @@ export default {
                             <div class="list-group">
                                 <router-link :to="{ name: 'home' }" @click="$emit('close')" class="list-group-item list-group-item-action"><i class="fas fa-arrow-right"></i> Zoznam stavenísk</router-link>
                                 <router-link :to="{ name: 'addUser' }" @click="$emit('close')" v-if="role_id === 1" class="list-group-item list-group-item-action"><i class="fas fa-user-plus"></i> Pridať nového zamestnanca</router-link>
+                                <router-link :to="{ name: 'addConstruction' }" @click="$emit('close')" v-if="role_id <= 2" class="list-group-item list-group-item-action"><i class="fas fa-building"></i> Vytvoriť nové stavenisko</router-link>
                                 <a href="#" class="list-group-item list-group-item-danger bg-danger text-black mt-0" @click="logout"><i class="fas fa-sign-out-alt"></i> Odhlásiť sa</a>
                             </div>
                         </div>

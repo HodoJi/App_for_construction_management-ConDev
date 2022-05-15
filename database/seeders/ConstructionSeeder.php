@@ -25,6 +25,16 @@ class ConstructionSeeder extends Seeder
             3 => [
                 'title'  => 'Tr. A. Hlinku 1',
             ],
+            4 => [
+                'title'  => 'Považská 9',
+            ],
+            5 => [
+                'title'  => 'Golianova 18',
+            ],
+            6 => [
+                'title'  => 'Kmeťova 57',
+            ],
+
         ];
 
         foreach ($constructions as $id => $constructionData)

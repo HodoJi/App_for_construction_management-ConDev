@@ -32,6 +32,8 @@ Route::post('showExistingUsers',        [App\Http\Controllers\API\UsersControlle
 Route::post('constructions-list', [App\Http\Controllers\API\ConstructionsController::class, 'getList']);
 Route::get('construction-material-show/{id}', [App\Http\Controllers\API\MaterialController::class, 'getMaterialOnConstruction']);
 Route::get('getConstructionDetail/{id}', [App\Http\Controllers\API\ConstructionsController::class, 'getConstructionDetailsPage']);
+Route::get('getConstructionCount', [App\Http\Controllers\API\ConstructionsController::class, 'getConstructionCount']);
+Route::put('addConstruction', [App\Http\Controllers\API\ConstructionsController::class, 'addNewConstruction']);
 
 // USER/EMPLOYEE MANAGMENT
 Route::get('construction-workers-show/{id}', [App\Http\Controllers\API\UsersController::class, 'getWorkersOnConstruction']);
