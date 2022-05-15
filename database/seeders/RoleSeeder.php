@@ -17,17 +17,17 @@ class RoleSeeder extends Seeder
     {
         $list = [
             1 => [
-                'role_name' => 'admin',
+                'role_name' => 'Admin',
             ],
             2 => [
-                'role_name' => 'manager',
+                'role_name' => 'Stavbyvedúci',
             ],
 
             3 => [
-                'role_name' => 'worker',
+                'role_name' => 'Robotník',
             ],
             4 => [
-                'role_name' => 'driver',
+                'role_name' => 'Šofér',
             ],
         ];
 
