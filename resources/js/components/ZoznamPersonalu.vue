@@ -26,7 +26,7 @@
                         <div id="nameHelp" class="form-text">Zadaj celé alebo čiastočné meno zamestnanca</div>
                     </div>
                 </div>
-                <div class="col-3" v-for="employee in searchedWorkers.users" :key="employee.id">
+                <div class="col-lg-3 col-md-6 col-sm-12" v-for="employee in searchedWorkers.users" :key="employee.id">
                     <div class="mb-3">
                         <div class="card " :class="{'bg-warning bg-opacity-75' : employee.cID == this.$route.params.id, 'bg-danger bg-opacity-50' : employee.cID == null}">
                             <div class="card-body">
