@@ -51,6 +51,44 @@ class MaterialOnConstructionSeeder extends Seeder
                 'construction_id'   => 1,
                 'stock_count'       => 60,
             ],
+
+            8 => [
+                'material_id'       => 1,
+                'construction_id'   => 2,
+                'stock_count'       => 60,
+            ],
+            9 => [
+                'material_id'       => 2,
+                'construction_id'   => 2,
+                'stock_count'       => 1000,
+            ],
+            10 => [
+                'material_id'       => 3,
+                'construction_id'   => 2,
+                'stock_count'       => 22,
+            ],
+            11 => [
+                'material_id'       => 4,
+                'construction_id'   => 3,
+                'stock_count'       => 12,
+            ],
+            12 => [
+                'material_id'       => 5,
+                'construction_id'   => 3,
+                'stock_count'       => 120,
+            ],
+            13 => [
+                'material_id'       => 6,
+                'construction_id'   => 3,
+                'stock_count'       => 44,
+            ],
+            14 => [
+                'material_id'       => 7,
+                'construction_id'   => 3,
+                'stock_count'       => 60,
+            ],
+
+
         ];
 
         foreach ($list as $id => $item_data)
