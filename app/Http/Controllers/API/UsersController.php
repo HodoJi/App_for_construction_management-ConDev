@@ -126,10 +126,14 @@ class UsersController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function addNewUser(Request $request): JsonResponse
+    public function addNewUser(Request $request)//: JsonResponse
     {
         $personalCode = 000111222;
-        return Response()->json(array("success" => "true", "message" => "Zamestnanec úspešne vytvorený! Osobný kód na príhlásenie: " . $personalCode));
+        //return Response()->json(array("success" => "true", "message" => "Zamestnanec úspešne vytvorený! Osobný kód na príhlásenie: " . $personalCode));
+        $user = User::create($request->all());
+        $user->save();
+
+        return $user;
     }
 
     /**

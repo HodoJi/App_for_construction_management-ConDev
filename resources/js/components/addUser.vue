@@ -21,12 +21,12 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Meno a priezvisko</label>
-                        <input type="text" class="form-control" id="inputName">
+                        <input v-model="fields.name" type="text" class="form-control" id="inputName">
                         <div id="nameHelp" class="form-text">Zadaj celé meno zamestnanca</div>
                     </div>
                     <div class="mb-3">
                         <label for="inputEmail" class="form-label">Emailová adresa</label>
-                        <input type="email" class="form-control" id="inputEmail">
+                        <input v-model="fields.email" type="email" class="form-control" id="inputEmail">
                         <div id="emailHelp" class="form-text">Zadaj email zamestnanca</div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                         </select>
                         <div id="roleHelp" class="form-text">Vyber pozíciu zamestnanca</div>
                     </div>
-                    <button type="button" class="btn btn-primary float-end" @click="addNewUser()"><i class="fas fa-plus"></i> Vytvoriť zamestnanca</button>
+                    <button type="submit" class="btn btn-primary float-end" @click="addNewUser()"><i class="fas fa-plus"></i> Vytvoriť zamestnanca</button>
                 </div>
             </div>
         </form>
@@ -91,6 +91,16 @@ export default {
     },
     data() {
         return {
+
+            fields: {
+                name:'',
+                email:'',
+                personalId:'',
+                password:'',
+                construction_id:'',
+                role_id:''
+            },
+
             role_id: window.Laravel.user.role_id,
             showModal: false,
             employees: [{name: "Admin Doe", email: "admindoe@tp2management.com", id: "1", role: "admin"},
@@ -100,10 +110,15 @@ export default {
         }
     },
     methods: {
-        addNewUser(){
 
+        addNewUser:function(){
+            this.$axios.put(".api/addNewUser",this.fields).then(()=>{
+                console.log()
+            }).catch(function (error) {
+            })
         }
-        //
+
+
     }
 }
 </script>
