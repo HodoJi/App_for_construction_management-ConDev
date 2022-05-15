@@ -23,84 +23,104 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
-import jQuery from "jquery";
+    import Swal from "sweetalert2";
+    import jQuery from "jquery";
 
-jQuery(document).ready(function() {
-    jQuery("#loginBtn").prop("disabled", true);
+    jQuery(document).ready(function() {
+        jQuery("#loginBtn").prop("disabled", true);
 
-    jQuery("#personalId").on('input', function() {
+        jQuery("#personalId").on('input', function() {
 
-        if (jQuery("#personalId").val().length < 1)
-        {
-            jQuery("#loginBtn").prop("disabled", true);
-        }
-        else
-        {
-            jQuery("#loginBtn").prop("disabled", false);
-        }
+            if (jQuery("#personalId").val().length < 1)
+            {
+                jQuery("#loginBtn").prop("disabled", true);
+            }
+            else
+            {
+                jQuery("#loginBtn").prop("disabled", false);
+            }
 
-    })
-});
+        })
+    });
 
-export default {
-    data() {
-        return {
-            personalId: "",
-            error: null
-        }
-    },
-    methods: {
-        handleLogin(e) {
-            e.preventDefault()
-            if (this.personalId.length > 8 && this.personalId.length < 10) {
-                this.$axios.get('./sanctum/csrf-cookie').then(response => {
-                    this.$axios.post('./api/login', {
-                        personalId: this.personalId,
-                    })
-                        .then(response => {
-                            console.log(response.data)
-                            if (response.data.success) {
+    export default {
+        data() {
+            return {
+                personalId: "",
+                error: null
+            }
+        },
+        methods: {
+            handleLogin(e)
+            {
+                e.preventDefault()
+                if (this.personalId.length === 9)
+                {
+                    this.$axios.get('./sanctum/csrf-cookie').then(response =>
+                    {
+                        this.$axios.post('./api/login', {
+                            personalId: this.personalId,
+                        })
+                            .then(response =>
+                            {
+                                console.log(response.data)
+                                if (response.data.success)
+                                {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Úspech!',
+                                        text: 'Ste prihlásený!',
+                                        showDenyButton: false,
+                                        showCancelButton: false,
+                                        confirmButtonText: 'Pokračovať',
+                                    }).then((result) =>
+                                    {
+                                        if (result.isConfirmed)
+                                        {
+                                            window.location.href = this.$BASE_PATH
+                                        }
+                                        else
+                                        {
+                                            window.location.href = this.$BASE_PATH
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    this.error = response.data.message
+                                    Swal.fire({
+                                        title: "Prihlásenie",
+                                        text: "Zadali ste neplatný osobný kľúč.",
+                                        icon: 'warning'
+                                    });
+                                }
+                            })
+                            .catch(function (error)
+                            {
+                                console.error(error);
                                 Swal.fire({
-                                    icon: 'success',
-                                    title: 'Úspech!',
-                                    text: 'Ste prihlásený!',
-                                    showDenyButton: false,
-                                    showCancelButton: false,
-                                    confirmButtonText: 'Pokračovať',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.href = this.$BASE_PATH
-                                    } else {
-                                        window.location.href = this.$BASE_PATH
-                                    }
-                                });
-                            } else {
-                                this.error = response.data.message
-                                Swal.fire({
-                                    title: "Prihlásenie",
-                                    text: "Zadali ste neplatný osobný kľúč.",
+                                    title: "Prihlásenie - Chyba",
+                                    html: 'Z nejakého dôvodu sa prihlásenie nepodarilo!<br>Chyba: ' + error,
                                     icon: 'warning'
                                 });
-                            }
-                        })
-                        .catch(function (error) {
-                            console.error(error);
-                            Swal.fire({
-                                title: "Prihlásenie - Chyba",
-                                html: 'Z nejakého dôvodu sa prihlásenie nepodarilo!<br>Chyba: ' + error,
-                                icon: 'warning'
                             });
-                        });
-                })
+                    })
+                }
+                else
+                {
+                    Swal.fire({
+                        title: "Prihlásenie",
+                        html: "Zadajte prosím osobný kľúč v správnom tvare:<br>" + "&nbsp;• Musí obsahovať 9 znakov.",
+                        icon: "info"
+                    })
+                }
             }
+        },
+        beforeRouteEnter(to, from, next) {
+            if (window.Laravel.isLoggedin) {
+                return next({ name: 'home' });
+            }
+            next();
         }
-    },
-    beforeRouteEnter(to, from, next) {
-        if (window.Laravel.isLoggedin) {
-            return next({ name: 'home' });
-        }
-        next();
     }
-}
 </script>
