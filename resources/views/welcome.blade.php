@@ -45,7 +45,6 @@
 </script>
 <div id="app"></div>
 <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"
-        type="text/javascript"></script>
+<script src="{{ asset('js/jquery-loadingoverlay.min.js') }}" type="text/javascript"></script>
 </body>
 </html>

@@ -64,7 +64,7 @@ export default {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Úspech!',
-                                    text: 'Si prihlásený!',
+                                    text: 'Ste prihlásený!',
                                     showDenyButton: false,
                                     showCancelButton: false,
                                     confirmButtonText: 'Pokračovať',

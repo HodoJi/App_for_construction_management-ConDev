@@ -15,35 +15,35 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-            $list = [
-                1 => [
-                    'role_name' => 'admin',
-                ],
-                2 => [
-                    'role_name' => 'manager',
-                ],
+        $list = [
+            1 => [
+                'role_name' => 'admin',
+            ],
+            2 => [
+                'role_name' => 'manager',
+            ],
 
-                3 => [
-                    'role_name' => 'worker',
-                ],
-                4 => [
-                    'role_name' => 'driver',
-                ],
-            ];
+            3 => [
+                'role_name' => 'worker',
+            ],
+            4 => [
+                'role_name' => 'driver',
+            ],
+        ];
 
-            foreach ($list as $id => $item_data) {
-                $check = DB::table("roles")->find($id);
+        foreach ($list as $id => $item_data)
+        {
+            $check = DB::table("roles")->find($id);
 
-                if (!$check) {
-                    $_class = new Role();
-                    $_class->id = $id;
-                    $_class->role_name = $item_data['role_name'];
-                    $_class->timestamps = false;
+            if (!$check)
+            {
+                $_class = new Role();
+                $_class->id = $id;
+                $_class->role_name = $item_data['role_name'];
+                $_class->timestamps = false;
 
-                    $_class->save();
-                }
+                $_class->save();
             }
         }
     }
-
-
+}

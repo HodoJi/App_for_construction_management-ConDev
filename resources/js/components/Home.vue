@@ -17,7 +17,7 @@
         </div>
         <div class="align-items-center justify-content-center">
             <ul class="list-group" v-for="(construction, index) in constructions">
-                <router-link :to="{ name: `detailStaveniska`, params: {id: construction.id} }" style="text-decoration: none"><!-- TODO: { Aké stavenisko vyberiem, call na => construction.id } -->
+                <router-link :to="{ name: `detailStaveniska`, params: {id: construction.id} }" style="text-decoration: none">
                     <li class="list-group-item align-middle">
                         <div class="row g-0 justify-content-center">
                             <div class="col">
