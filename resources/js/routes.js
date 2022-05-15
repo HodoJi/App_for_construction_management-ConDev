@@ -8,6 +8,7 @@ import ZoznamMaterialov from "./components/ZoznamMaterialov";
 import e401 from "./components/e401";
 import addUser from "./components/addUser";
 import editUser from "./components/editUser";
+import addConstruction from "./components/addConstruction";
 
 const base_path = "/TP2-App_for_construction_management/public/";
 
@@ -60,6 +61,11 @@ export const routes = [{
         name: 'editUser',
         path: base_path + 'upravit-zamestnanca/:id',
         component: editUser
+    },
+    {
+        name: 'addConstruction',
+        path: base_path + 'pridat-stavenisko',
+        component: addConstruction
     },
     /* šablóna:
     {

@@ -80,7 +80,8 @@ router.beforeEach((to, from) => {
                 || to.path.includes(base_path + 'zoznam-objednavok')
                 || to.path.includes(base_path + 'zoznam-objednavok')
                 || to.path.includes(base_path + 'pridat-zamestnanca')
-                || to.path.includes(base_path + 'upravit-zamestnanca')) {
+                || to.path.includes(base_path + 'upravit-zamestnanca')
+                || to.path.includes(base_path + 'pridat-stavenisko')) {
                 router.push(base_path + '401')
             }
         }
@@ -88,7 +89,8 @@ router.beforeEach((to, from) => {
             if (to.path.includes(base_path + 'zoznam-soferov')
                 || to.path.includes(base_path + 'zoznam-materialov')
                 || to.path.includes(base_path + 'pridat-zamestnanca')
-                || to.path.includes(base_path + 'upravit-zamestnanca')) {
+                || to.path.includes(base_path + 'upravit-zamestnanca')
+                || to.path.includes(base_path + 'pridat-stavenisko')) {
                 router.push(base_path + '401')
             }
         }
