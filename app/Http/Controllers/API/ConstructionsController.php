@@ -45,4 +45,37 @@ class ConstructionsController
             return response()->json(array("success" => false));
         }
     }
+
+    public function getConstructionCount(): JsonResponse
+    {
+        $authUserId = DB::table('users')
+            ->where('id', '=', Auth::id())->value("role_id");
+        if ($authUserId <= 2) {
+            $numberOfConstructions = DB::select(""); //TODO: SQL QUERY NA POCET STAVENISK
+            if($numberOfConstructions){
+                return Response()->json($numberOfConstructions);
+            }  else {
+                return Response()->json(["success" => false, "message" => "Neexistuje zatiaľ žiadne stavenisko."]);
+            }
+        } else {
+            return Response()->json(array("success" => false, "message" => "Nemáš dostatočné práva na vykonanie tejto akcie."));
+        }
+    }
+
+    public function addNewConstruction(Request $request): JsonResponse
+    {
+        $stavenisko = trim($request->constrName);
+        $authUserId = DB::table('users')
+            ->where('id', '=', Auth::id())->value("role_id");
+        if ($authUserId <= 2) {
+            $numberOfConstructions = DB::select(""); //TODO: SQL QUERY NA POCET STAVENISK
+            if($numberOfConstructions){
+                return Response()->json(["success" => true, "message" => "Stavenisko ". $stavenisko." úspešne pridané!"]);
+            }  else {
+                return Response()->json(["success" => false, "message" => "Nastala chyba!"]);
+            }
+        } else {
+            return Response()->json(array("success" => false, "message" => "Nemáš dostatočné práva na vykonanie tejto akcie."));
+        }
+    }
 }
