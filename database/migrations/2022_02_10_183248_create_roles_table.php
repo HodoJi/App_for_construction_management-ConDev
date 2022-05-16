@@ -14,7 +14,8 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::enableForeignKeyConstraints();
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table)
+        {
             $table->id();
             $table->string('role_name', 150);
         });

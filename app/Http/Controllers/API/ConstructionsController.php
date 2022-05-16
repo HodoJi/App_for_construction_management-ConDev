@@ -25,23 +25,32 @@ class ConstructionsController
         //$selection = DB::select("SELECT id, title, created_at, updated_at FROM constructions ORDER BY created_at");
         $selection = Construction::withCount('users')->get();
 
-        if ($selection) {
+        if ($selection)
+        {
             return response()->json($selection);
-        } else {
+        }
+        else
+        {
             return response()->json(array("success" => false));
         }
     }
 
     public function getConstructionDetailsPage($constructionId): JsonResponse
     {
-        if (Auth::check()) {
+        if (Auth::check())
+        {
             $selection = DB::select("SELECT id, title FROM constructions WHERE id = " . $constructionId);
-            if ($selection) {
+            if ($selection)
+            {
                 return response()->json($selection);
-            } else {
+            }
+            else
+            {
                 return response()->json(array("success" => false, "message" => "Stavenisko neexistuje!"));
             }
-        } else {
+        }
+        else
+        {
             return response()->json(array("success" => false));
         }
     }
@@ -50,14 +59,20 @@ class ConstructionsController
     {
         $authUserId = DB::table('users')
             ->where('id', '=', Auth::id())->value("role_id");
-        if ($authUserId <= 2) {
+        if ($authUserId <= 2)
+        {
             $numberOfConstructions = DB::select("SELECT COUNT(*) as count_of_constructions FROM constructions"); //TODO: SQL QUERY NA POCET STAVENISK
-            if($numberOfConstructions){
+            if ($numberOfConstructions)
+            {
                 return Response()->json($numberOfConstructions);
-            }  else {
+            }
+            else
+            {
                 return Response()->json(["success" => false, "message" => "Neexistuje zatiaľ žiadne stavenisko."]);
             }
-        } else {
+        }
+        else
+        {
             return Response()->json(array("success" => false, "message" => "Nemáš dostatočné práva na vykonanie tejto akcie."));
         }
     }
@@ -66,19 +81,24 @@ class ConstructionsController
     {
         $authUserId = DB::table('users')
             ->where('id', '=', Auth::id())->value("role_id");
-        if ($authUserId <= 2) {
-            try {
+        if ($authUserId <= 2)
+        {
+            try
+            {
                 $construction = new Construction();
                 $construction->title = trim($request->constructionName);
                 $construction->save();
-                return Response()->json(["success" => true, "message" => "Stavenisko ". trim($request->constructionName)." úspešne pridané!"]);
-            } catch(\Exception $defEx)
+                return Response()->json(["success" => true, "message" => "Stavenisko " . trim($request->constructionName) . " úspešne pridané!"]);
+            }
+            catch (\Exception $defEx)
             {
                 $message = $defEx->getMessage();
                 return Response()->json(["success" => false, "message" => $message]);
             }
 
-        } else {
+        }
+        else
+        {
             return Response()->json(array("success" => false, "message" => "Nemáš dostatočné práva na vykonanie tejto akcie."));
         }
     }

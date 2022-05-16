@@ -38,7 +38,8 @@ class MaterialCounterType extends Authenticatable
         'material_counter_type',
     ];
 
-    public function materials(){
+    public function materials()
+    {
         return $this->hasMany('App\Models\Material');
     }
 

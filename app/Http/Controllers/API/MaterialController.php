@@ -35,7 +35,7 @@ class MaterialController
             "HAVING moc_construction_id = {$construction_id}"
         );
 
-        if($items)
+        if ($items)
         {
             return Response()->json($items);
         }
@@ -56,7 +56,7 @@ class MaterialController
             "GROUP BY material_id, material_title, mct_material_counter_type"
         );
 
-        if($items)
+        if ($items)
         {
             return Response()->json($items);
         }
@@ -76,7 +76,7 @@ class MaterialController
             "WHERE material_counter_type_id = {$material_counter_type_id}"
         );
 
-        if($items)
+        if ($items)
         {
             return Response()->json($items);
         }
@@ -85,7 +85,6 @@ class MaterialController
             return Response()->json(array("success" => false));
         }
     }
-
 
 
 }

@@ -6,60 +6,73 @@
 
 <script>
 
-export default {
-    name: "App",
-    data() {
-        return {
-            role_id: null,
-            isLoggedIn: false
-        }
-    },
-    created() {
-        if (window.Laravel.isLoggedin) {
-            this.isLoggedIn = true
-        }
-        if (window.Laravel.user) {
-            this.role_id = window.Laravel.user.role_id
-        }
-    },
-    beforeRouteEnter(to, from, next) {
-        if (!window.Laravel.isLoggedIn) {
-            window.location.href = "./";
-        }
-        next();
-    },
-    methods: {
-    },
-}
-function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";SameSite=Strict; Secure;" + "path=/";
-}
+    export default {
+        name: "App",
+        data()
+        {
+            return {
+                role_id: null,
+                isLoggedIn: false
+            }
+        },
+        created()
+        {
+            if (window.Laravel.isLoggedin)
+            {
+                this.isLoggedIn = true
+            }
+            if (window.Laravel.user)
+            {
+                this.role_id = window.Laravel.user.role_id
+            }
+        },
+        beforeRouteEnter(to, from, next)
+        {
+            if (!window.Laravel.isLoggedIn)
+            {
+                window.location.href = "./";
+            }
+            next();
+        },
+        methods: {},
+    }
 
-import $ from 'jquery';
+    function setCookie(cname, cvalue, exdays)
+    {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";SameSite=Strict; Secure;" + "path=/";
+    }
 
-$(document).ready(function () {
-    $('#themeSwitch').click(function () {
-        let themeSelected = $('#themeLink').attr('class');
-        if (themeSelected === 'light') {
-            setCookie("UserThemeTP2Management", "themeIsDark", 90);
-            $('link[id="themeLink"]').attr('href', './css/dark_mode.css').attr('class', 'dark');
+    import $ from 'jquery';
+
+    $(document).ready(function ()
+    {
+        $('#themeSwitch').click(function ()
+        {
+            let themeSelected = $('#themeLink').attr('class');
+            if (themeSelected === 'light')
+            {
+                setCookie("UserThemeTP2Management", "themeIsDark", 90);
+                $('link[id="themeLink"]').attr('href', './css/dark_mode.css').attr('class', 'dark');
+                $('#themeSwitch').html('&#x1F31E;');
+            }
+            if (themeSelected === 'dark')
+            {
+                setCookie("UserThemeTP2Management", "", -1);
+                $('link[id="themeLink"]').attr('href', './css/light_mode.css').attr('class', 'light');
+                $('#themeSwitch').html('🌙');
+            }
+        });
+    });
+    $(document).ready(function ()
+    {
+        if (document.cookie.indexOf('UserThemeTP2Management') > -1)
+        {
             $('#themeSwitch').html('&#x1F31E;');
         }
-        if (themeSelected === 'dark') {
-            setCookie("UserThemeTP2Management", "", -1);
-            $('link[id="themeLink"]').attr('href', './css/light_mode.css').attr('class', 'light');
-            $('#themeSwitch').html('🌙');
-        }
     });
-});
-$(document).ready(function () {
-    if (document.cookie.indexOf('UserThemeTP2Management') > -1) {
-        $('#themeSwitch').html('&#x1F31E;');
-    }
-});
 </script>
 <style>
 

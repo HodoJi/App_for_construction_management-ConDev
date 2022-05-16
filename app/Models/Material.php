@@ -40,13 +40,18 @@ class Material extends Authenticatable
         'material_counter_type_id',
     ];
 
-    public function materialcountertype(){
+    public function materialcountertype()
+    {
         return $this->belongsTo('App\Models\MaterialCounterType');
     }
-    public function materialonconstructions(){
+
+    public function materialonconstructions()
+    {
         return $this->hasMany('App\Models\MaterialOnConstruction');
     }
-    public function orders(){
+
+    public function orders()
+    {
         return $this->hasMany('App\Models\Order');
     }
 

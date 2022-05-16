@@ -28,7 +28,7 @@ class MaterialCounterTypeSeeder extends Seeder
         {
             $check = MaterialCounterType::find($id);
 
-            if(!$check)
+            if (!$check)
             {
                 $_class = new MaterialCounterType();
                 $_class->material_counter_type_id = $id;

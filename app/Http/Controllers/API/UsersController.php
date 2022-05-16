@@ -166,9 +166,11 @@ class UsersController extends Controller
         $authUserId = DB::table('users')
             ->where('id', '=', Auth::id())->value("role_id");
         $searchedString = trim($request->employeeName);
-        if ($authUserId <= 2) {
+        if ($authUserId <= 2)
+        {
             $foundUsers = DB::select("SELECT users.id, users.name, users.email, constructions.id AS cID, constructions.title  FROM users LEFT JOIN constructions ON constructions.id=users.construction_id WHERE users.name LIKE '%$searchedString%'  AND users.role_id > 1");
-            if ($foundUsers) {
+            if ($foundUsers)
+            {
                 return Response()->json(["success" => true, "users" => $foundUsers]);
             }
             else

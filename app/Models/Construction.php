@@ -31,17 +31,20 @@ class Construction extends Authenticatable
         'title',
     ];
 
-    public function users(){
+    public function users()
+    {
         return $this->hasMany('App\Models\User');
     }
 
-    public function materialonconstructions(){
+    public function materialonconstructions()
+    {
         return $this->hasMany('App\Models\MaterialOnConstruction');
     }
-    public function orders(){
+
+    public function orders()
+    {
         return $this->hasMany('App\Models\Order');
     }
-
 
 
     /**

@@ -26,7 +26,8 @@ class CreateUsersTable extends Migration
             $table->timestamps(); /*: created_at & edited_at; */
         });
 
-        Schema::table('users', function($table) {
+        Schema::table('users', function ($table)
+        {
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('construction_id')->references('id')->on('constructions');
         });

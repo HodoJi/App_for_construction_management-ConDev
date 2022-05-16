@@ -23,7 +23,8 @@ class CreateMaterialOnConstructionTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('material_on_construction', function($table) {
+        Schema::table('material_on_construction', function ($table)
+        {
             $table->foreign('construction_id')->references('id')->on('constructions');
             $table->foreign('material_id')->references('material_id')->on('material');
         });

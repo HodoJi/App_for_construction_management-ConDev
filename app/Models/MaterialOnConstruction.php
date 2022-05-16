@@ -33,11 +33,13 @@ class MaterialOnConstruction extends Authenticatable
         'stock_count',
     ];
 
-    public function construction(){
+    public function construction()
+    {
         return $this->belongsTo('App\Models\Construction');
     }
 
-    public function material(){
+    public function material()
+    {
         return $this->belongsTo('App\Models\Material');
     }
 

@@ -27,10 +27,10 @@ class Role extends Model
         'user_role',
     ];
 
-    public function users(){
+    public function users()
+    {
         return $this->hasMany('App\Models\User');
     }
-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,4 +47,3 @@ class Role extends Model
     protected $casts = [];
 
 }
-

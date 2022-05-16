@@ -16,13 +16,15 @@
             <div class="col-4 d-flex align-items-start justify-content-end">
                 <button type="button" @click="showModal = true" class="btn btn-dark"><i class="fas fa-list fs-6"></i>
                 </button>
-                <button type="button" onclick="history.back()" class="btn btn-primary ms-2"><i class="fas fa-arrow-left fs-6"></i>
+                <button type="button" onclick="history.back()" class="btn btn-primary ms-2"><i
+                    class="fas fa-arrow-left fs-6"></i>
                 </button>
             </div>
         </div>
 
         <div class="row align-items-center justify-content-center mb-5">
-            <a id="orderCreateLink" href="#orderCreate" type="button" class="btn btn-dark w-auto" data-bs-toggle="collapse"
+            <a id="orderCreateLink" href="#orderCreate" type="button" class="btn btn-dark w-auto"
+               data-bs-toggle="collapse"
                role="button" aria-expanded="false" v-if="role_id <= 2" aria-controls="collapseExample"
                @click="ChangeArrow('orderCreateLink')">Vytvoriť objednávku <i class="fas fa-angle-down ms-2"></i></a>
 
@@ -83,137 +85,174 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
-import BurgerMenu from "./BurgerMenu";
-import $ from "jquery";
+    import Swal from "sweetalert2";
+    import BurgerMenu from "./BurgerMenu";
+    import $ from "jquery";
 
-export default {
-    name: "ZoznamMaterialov",
-    components: {
-        BurgerMenu
-    },
-    data() {
-        return {
-            role_id: window.Laravel.user.role_id,
-            showModal: false,
-            materials: [],
-            constructionName: "",
-            constructionNumber: null,
-            fields: {
-                material_id: "",
-                construction_id: this.$route.params.id,
-                amount: ""
+    export default {
+        name: "ZoznamMaterialov",
+        components: {
+            BurgerMenu
+        },
+        data()
+        {
+            return {
+                role_id: window.Laravel.user.role_id,
+                showModal: false,
+                materials: [],
+                constructionName: "",
+                constructionNumber: null,
+                fields: {
+                    material_id: "",
+                    construction_id: this.$route.params.id,
+                    amount: ""
+                }
             }
-        }
-    },
-    mounted() {
-        this.getMaterials();
-        this.getConstructionName();
-    },
-    methods: {
-        getMaterials() {
-            this.$nextTick(function () {
-                if (this.$route.params.id == null) {
-                    this.$router.push({name: 'home'})
-                } else {
-                    this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
-                        this.$axios.get(this.$BASE_PATH + `api/construction-material-show/${this.$route.params.id}`)
-                            .then(response => {
+        },
+        mounted()
+        {
+            this.getMaterials();
+            this.getConstructionName();
+        },
+        methods: {
+            getMaterials()
+            {
+                this.$nextTick(function ()
+                {
+                    if (this.$route.params.id == null)
+                    {
+                        this.$router.push({name: 'home'})
+                    }
+                    else
+                    {
+                        this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() =>
+                        {
+                            this.$axios.get(this.$BASE_PATH + `api/construction-material-show/${this.$route.params.id}`)
+                                .then(response =>
+                                {
 
-                                if (response.data) {
-                                    this.materials = response.data
+                                    if (response.data)
+                                    {
+                                        this.materials = response.data
 
-                                    if (this.materials.length > 0)
-                                        this.materials.success = true
+                                        if (this.materials.length > 0)
+                                            this.materials.success = true
 
-                                    if (!this.materials.success) {
-                                        Swal.fire({
-                                            title: "Zoznam materiálov",
-                                            html: "Chyba:<br>" + "Nepodarilo sa nájsť žiadny záznam.",
-                                            icon: "warning"
-                                        });
-                                        this.$router.push({path: this.$BASE_PATH + `detail-staveniska/${this.$route.params.id}`})
+                                        if (!this.materials.success)
+                                        {
+                                            Swal.fire({
+                                                title: "Zoznam materiálov",
+                                                html: "Chyba:<br>" + "Nepodarilo sa nájsť žiadny záznam.",
+                                                icon: "warning"
+                                            });
+                                            this.$router.push({path: this.$BASE_PATH + `detail-staveniska/${this.$route.params.id}`})
+                                        }
                                     }
-                                } else {
-                                    Swal.fire({title: "Zoznam materiálov", text: "Chyba!", icon: "warning"});
-                                }
+                                    else
+                                    {
+                                        Swal.fire({title: "Zoznam materiálov", text: "Chyba!", icon: "warning"});
+                                    }
 
-                            })
-                            .catch(function (error) {
+                                })
+                                .catch(function (error)
+                                {
+                                    console.error(error);
+                                    Swal.fire({
+                                        title: "Zoznam materiálov",
+                                        html: "Chyba:<br>" + error,
+                                        icon: "warning"
+                                    });
+                                });
+                        })
+                    }
+                })
+            },
+            getConstructionName()
+            {
+                this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() =>
+                {
+                    this.$axios.get(this.$BASE_PATH + `api/getConstructionDetail/${this.$route.params.id}`)
+                        .then(response =>
+                        {
+                            console.log(response.data)
+                            this.constructionName = response.data[0].title;
+                            this.constructionNumber = response.data[0].id;
+                        })
+                        .catch(function (error)
+                        {
+                            console.error(error);
+                            Swal.fire({title: "Zoznam materiálov", html: "Chyba:<br>" + error, icon: "warning"});
+                        });
+                })
+            },
+            ChangeArrow(id)
+            {
+                console.log($("#" + id).html())
+                if ($("#" + id).html() == 'Vytvoriť objednávku <i class="fas fa-angle-down ms-2"></i>')
+                {
+                    $("#" + id).html('Vytvoriť objednávku <i class="fas fa-angle-up ms-2"></i>');
+                }
+                else
+                {
+                    $("#" + id).html('Vytvoriť objednávku <i class="fas fa-angle-down ms-2"></i>');
+                }
+
+            },
+
+            createOrder(e)
+            {
+                e.preventDefault()
+
+                if (this.fields.material_id === "" || this.fields.amount === "")
+                {
+                    Swal.fire({
+                        title: "Vytvorenie objednávky - Upozornenie",
+                        html: "Musíte vyplniť všetky údaje.",
+                        icon: 'warning',
+                    })
+                }
+                else
+                {
+                    this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() =>
+                    {
+                        this.$axios.post(this.$BASE_PATH + 'api/createOrder', this.fields).then(response =>
+                        {
+                            if (response.data.success)
+                            {
+                                Swal.fire({
+                                    title: "Vytvorenie objednávky",
+                                    text: "Objednávka bola úspešne vytvorená.",
+                                    icon: 'success',
+                                }).then(function ()
+                                {
+                                    window.location.reload()
+                                })
+                            }
+                            else
+                            {
+                                this.error = response.data.message
+
+                                Swal.fire({
+                                    title: "Vytvorenie objednávky - Neúspech",
+                                    html: "Objednávku sa nepodarilo vytvoriť:<br>" + this.error.toString(),
+                                    icon: 'warning',
+                                })
+                            }
+                        })
+                            .catch(function (error)
+                            {
                                 console.error(error);
-                                Swal.fire({title: "Zoznam materiálov", html: "Chyba:<br>" + error, icon: "warning"});
+                                Swal.fire({
+                                    title: "Vytvorenie objednávky - Chyba",
+                                    html: "Chyba:<br>" + error.toString(),
+                                    icon: 'warning',
+                                });
                             });
                     })
                 }
-            })
-        },
-        getConstructionName() {
-            this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
-                this.$axios.get(this.$BASE_PATH + `api/getConstructionDetail/${this.$route.params.id}`)
-                    .then(response => {
-                        console.log(response.data)
-                        this.constructionName = response.data[0].title;
-                        this.constructionNumber = response.data[0].id;
-                    })
-                    .catch(function (error) {
-                        console.error(error);
-                        Swal.fire({title: "Zoznam materiálov", html: "Chyba:<br>" + error, icon: "warning"});
-                    });
-            })
-        },
-        ChangeArrow(id) {
-            console.log($("#" + id).html())
-            if ($("#" + id).html() == 'Vytvoriť objednávku <i class="fas fa-angle-down ms-2"></i>') {
-                $("#" + id).html('Vytvoriť objednávku <i class="fas fa-angle-up ms-2"></i>');
-            } else {
-                $("#" + id).html('Vytvoriť objednávku <i class="fas fa-angle-down ms-2"></i>');
-            }
-
-        },
-
-        createOrder(e) {
-            e.preventDefault()
-
-            if (this.fields.material_id === "" || this.fields.amount === "") {
-                Swal.fire({
-                    title: "Vytvorenie objednávky - Upozornenie",
-                    html: "Musíte vyplniť všetky údaje.",
-                    icon: 'warning',
-                })
-            } else {
-                this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
-                    this.$axios.post(this.$BASE_PATH + 'api/createOrder', this.fields).then(response => {
-                        if (response.data.success) {
-                            Swal.fire({
-                                title: "Vytvorenie objednávky",
-                                text: "Objednávka bola úspešne vytvorená.",
-                                icon: 'success',
-                            }).then(function () {
-                                window.location.reload()
-                            })
-                        } else {
-                            this.error = response.data.message
-
-                            Swal.fire({
-                                title: "Vytvorenie objednávky - Neúspech",
-                                html: "Objednávku sa nepodarilo vytvoriť:<br>" + this.error.toString(),
-                                icon: 'warning',
-                            })
-                        }
-                    })
-                        .catch(function (error) {
-                            console.error(error);
-                            Swal.fire({
-                                title: "Vytvorenie objednávky - Chyba",
-                                html: "Chyba:<br>" + error.toString(),
-                                icon: 'warning',
-                            });
-                        });
-                })
             }
         }
     }
-}
 </script>
 
 <style>
