@@ -49,8 +49,8 @@
         </form>
 
         <!-- ↓ ZOZNAM EXISTUJÚCICH POUŽÍVATEĽOV ↓ -->
-        <div class="align-items-center justify-content-center">
-            <table class="table table-striped table-responsive table-bordered">
+        <div class="align-items-center justify-content-center table-responsive">
+            <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
