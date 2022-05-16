@@ -51,7 +51,7 @@ class ConstructionsController
         $authUserId = DB::table('users')
             ->where('id', '=', Auth::id())->value("role_id");
         if ($authUserId <= 2) {
-            $numberOfConstructions = DB::select(""); //TODO: SQL QUERY NA POCET STAVENISK
+            $numberOfConstructions = DB::select("SELECT COUNT(*) as count_of_constructions FROM constructions"); //TODO: SQL QUERY NA POCET STAVENISK
             if($numberOfConstructions){
                 return Response()->json($numberOfConstructions);
             }  else {
@@ -64,16 +64,20 @@ class ConstructionsController
 
     public function addNewConstruction(Request $request): JsonResponse
     {
-        $stavenisko = trim($request->constrName);
         $authUserId = DB::table('users')
             ->where('id', '=', Auth::id())->value("role_id");
         if ($authUserId <= 2) {
-            $numberOfConstructions = DB::select(""); //TODO: SQL QUERY NA POCET STAVENISK
-            if($numberOfConstructions){
-                return Response()->json(["success" => true, "message" => "Stavenisko ". $stavenisko." úspešne pridané!"]);
-            }  else {
-                return Response()->json(["success" => false, "message" => "Nastala chyba!"]);
+            try {
+                $construction = new Construction();
+                $construction->title = trim($request->constructionName);
+                $construction->save();
+                return Response()->json(["success" => true, "message" => "Stavenisko ". trim($request->constructionName)." úspešne pridané!"]);
+            } catch(\Exception $defEx)
+            {
+                $message = $defEx->getMessage();
+                return Response()->json(["success" => false, "message" => $message]);
             }
+
         } else {
             return Response()->json(array("success" => false, "message" => "Nemáš dostatočné práva na vykonanie tejto akcie."));
         }
