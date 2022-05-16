@@ -182,7 +182,7 @@ export default {
                             {
                                 Swal.fire({
                                     title: "Vytvorenie používateľa",
-                                    text: "Používateľ bol úspešne vytvorený.",
+                                    text: response.data.message.toString(),
                                     icon: 'success',
                                 }).then(function ()
                                 {
@@ -195,7 +195,7 @@ export default {
 
                                 Swal.fire({
                                     title: "Vytvorenie používateľa - Neúspech",
-                                    html: "Používateľa sa nepodarilo vytroviť:<br>" + this.error.toString(),
+                                    html: "Používateľa sa nepodarilo vytvoriť:<br>" + this.error.toString(),
                                     icon: 'warning',
                                 })
                             }
@@ -206,7 +206,7 @@ export default {
                             Swal.fire({
                                 title: "Vytvorenie používateľa - Chyba",
                                 html: "Chyba:<br>" + error.toString(),
-                                icon: 'warning',
+                                icon: 'error',
                             });
                         });
                 })

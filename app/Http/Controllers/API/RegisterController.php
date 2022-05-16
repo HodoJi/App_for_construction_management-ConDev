@@ -74,7 +74,12 @@ class RegisterController extends Controller
 
             if (($user->personalId) == null || strlen(strval($user->personalId)) < 9)
             {
-                throw new ErrorException("Cannot create user with such personalId key! Check RegisterController API!");
+                throw new ErrorException("Nie je možné vytvoriť používateľa s takýmto kľúčom `personalId`! Pozrite RegisterController API!");
+            }
+
+            if ($UserController->doesUserEmailExist($user->email))
+            {
+                throw new ErrorException("Používateľ s e-mailovou adresou `{$user->email}` už existuje, zvoľte prosím inú.");
             }
 
             $user->save();

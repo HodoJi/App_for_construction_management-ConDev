@@ -44,7 +44,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Checks if user exist function
+     * Checks if User exist function
      *
      * @return bool
      * @var int $user_id
@@ -55,6 +55,25 @@ class UsersController extends Controller
         try
         {
             return ((User::where('id', '=', $user_id)->first()) != null);
+        }
+        catch (\Exception $ex)
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if User's E-mail exist function
+     *
+     * @return bool
+     * @var string $user_email
+     *
+     */
+    public function doesUserEmailExist(string $user_email): bool
+    {
+        try
+        {
+            return ((User::where('email', '=', $user_email)->first()) != null);
         }
         catch (\Exception $ex)
         {
