@@ -17,16 +17,16 @@ class StatusSeeder extends Seeder
     {
         $list = [
             1 => [
-                'status_name' => 'Not Assigned',
+                'status_name' => 'Nepriradená',
             ],
             2 => [
-                'status_name' => 'Assigned',
+                'status_name' => 'Priradená',
             ],
             3 => [
-                'status_name' => 'In Delivery',
+                'status_name' => 'V preprave',
             ],
             4 => [
-                'status_name' => 'Delivered',
+                'status_name' => 'Doručená',
             ],
         ];
 

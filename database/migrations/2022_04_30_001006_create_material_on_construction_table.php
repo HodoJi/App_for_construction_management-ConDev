@@ -20,6 +20,7 @@ class CreateMaterialOnConstructionTable extends Migration
             $table->unsignedBigInteger('construction_id');
             $table->unsignedBigInteger('material_id');
             $table->integer('stock_count')->default(1);
+            $table->timestamps();
         });
 
         Schema::table('material_on_construction', function($table) {

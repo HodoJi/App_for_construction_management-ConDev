@@ -34,7 +34,7 @@ export const routes = [{
     },
     {
         name: 'zoznamObjednavok',
-        path: base_path + 'zoznam-objednavok',
+        path: base_path + 'zoznam-objednavok/:id',
         component: ZoznamObjednavok
     },
     {

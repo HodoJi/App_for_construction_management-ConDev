@@ -38,6 +38,9 @@ class Construction extends Authenticatable
     public function materialonconstructions(){
         return $this->hasMany('App\Models\MaterialOnConstruction');
     }
+    public function orders(){
+        return $this->hasMany('App\Models\Order');
+    }
 
 
 

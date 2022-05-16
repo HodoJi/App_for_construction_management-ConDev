@@ -43,6 +43,9 @@ class User extends Authenticatable
     public function construction(){
         return $this->belongsTo('App\Models\Construction');
     }
+    public function orders(){
+        return $this->hasMany('App\Models\Order');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -38,7 +38,34 @@
 
     <div class="d-flex position-absolute bottom-0 start-50 translate-middle-x mb-5 mt-auto">
         <div class="btn-group d-flex" role="group">
-            <button type="button" class="btn btn-dark">Objednať</button>
+                <a id="orderCreateLink" href="#orderCreate" type="button" class="btn btn-dark" data-bs-toggle="collapse"
+                   role="button" aria-expanded="false" v-if="role_id <= 2" aria-controls="collapseExample"
+                   @click="ChangeArrow('orderCreateLink')"><i class="fas fa-angle-down"></i>Vytvoriť objednávku</a>
+        </div>
+    </div>
+
+    <div class="collapse" id="orderCreate">
+        <div class="align-items-center justify-content-center">
+            <form class="border border-dark rounded p-3 mb-5">
+                <div class="row">
+
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="materialArray" class="form-label">Matariál</label>
+                        <select class="form-control" v-model="fields.material_id">
+                            <option v-if="materials.length > 0" v-for="(material) in materials" :value="material.moc_material_id" id="materialArray"> {{material.material_title+" v "+material.mct_material_counter_type}}</option>
+                        </select>
+                        <div id="materialHelp" class="form-text">Zadajte materiál</div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <label for="amountArray" class="form-label">Počet</label>
+                        <input v-model="fields.amount" type="number" class="form-control" id="amountArray" placeholder="Počet">
+                        <div id="amountHelp" class="form-text">Zadajte počet</div>
+                        <input id="order_create" type="submit" class="btn btn-dark float-end" @click="createOrder" value="Odoslať objednávku">
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
 
@@ -52,6 +79,7 @@
 <script>
 import Swal from "sweetalert2";
 import BurgerMenu from "./BurgerMenu";
+import $ from "jquery";
 
 export default {
     name: "ZoznamMaterialov",
@@ -63,6 +91,12 @@ export default {
             role_id: window.Laravel.user.role_id,
             showModal: false,
             materials: [],
+
+            fields:{
+                material_id: "",
+                construction_id: this.$route.params.id,
+                amount: ""
+            }
         }
     },
     mounted: function () {
@@ -106,7 +140,68 @@ export default {
         })
     },
     methods: {
-        //
+        ChangeArrow(id) {
+            console.log($("#"+id).html())
+            if ($("#"+id).html() == '<i class="fas fa-angle-down"></i><a>Vytvoriť objednávku</a>') {
+                $("#"+id).html('<i class="fas fa-angle-up"></i><a>Vytvoriť objednávku</a>');
+            } else {
+                $("#"+id).html('<i class="fas fa-angle-down"></i><a>Vytvoriť objednávku</a>');
+            }
+
+        },
+
+        createOrder(e)
+        {
+            e.preventDefault()
+
+            if (this.fields.material_id === "" || this.fields.amount === "")
+            {
+                Swal.fire({
+                    title: "Vytvorenie objednávky - Upozornenie",
+                    html: "Musíte vyplniť všetky údaje.",
+                    icon: 'warning',
+                })
+            }
+            else
+            {
+                this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() =>
+                {
+                    this.$axios.post(this.$BASE_PATH + 'api/createOrder', this.fields).then(response =>
+                        {
+                            if (response.data.success)
+                            {
+                                Swal.fire({
+                                    title: "Vytvorenie objednávky",
+                                    text: "Objednávka bola úspešne vytvorená.",
+                                    icon: 'success',
+                                }).then(function ()
+                                {
+                                    window.location.reload()
+                                })
+                            }
+                            else
+                            {
+                                this.error = response.data.message
+
+                                Swal.fire({
+                                    title: "Vytvorenie objednávky - Neúspech",
+                                    html: "Objednávku sa nepodarilo vytvoriť:<br>" + this.error.toString(),
+                                    icon: 'warning',
+                                })
+                            }
+                        })
+                        .catch(function (error)
+                        {
+                            console.error(error);
+                            Swal.fire({
+                                title: "Vytvorenie objednávky - Chyba",
+                                html: "Chyba:<br>" + error.toString(),
+                                icon: 'warning',
+                            });
+                        });
+                })
+            }
+        }
     }
 }
 </script>

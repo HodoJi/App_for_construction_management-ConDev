@@ -46,6 +46,9 @@ class Material extends Authenticatable
     public function materialonconstructions(){
         return $this->hasMany('App\Models\MaterialOnConstruction');
     }
+    public function orders(){
+        return $this->hasMany('App\Models\Order');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
