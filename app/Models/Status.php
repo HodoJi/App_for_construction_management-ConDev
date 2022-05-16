@@ -3,15 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/**
- * Class Construction
- * @package App\Models
- */
-class Construction extends Authenticatable
+
+class Status extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -20,7 +17,7 @@ class Construction extends Authenticatable
      *
      * @var string
      */
-    protected $table = 'constructions';
+    protected $table = 'statuses';
 
     /**
      * The attributes that are mass assignable.
@@ -28,20 +25,12 @@ class Construction extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'title',
+        'status_name',
     ];
 
-    public function users(){
-        return $this->hasMany('App\Models\User');
-    }
-
-    public function materialonconstructions(){
-        return $this->hasMany('App\Models\MaterialOnConstruction');
-    }
     public function orders(){
         return $this->hasMany('App\Models\Order');
     }
-
 
 
     /**
@@ -59,3 +48,5 @@ class Construction extends Authenticatable
     protected $casts = [];
 
 }
+
+

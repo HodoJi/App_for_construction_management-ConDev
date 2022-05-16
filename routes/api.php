@@ -40,3 +40,10 @@ Route::get('construction-workers-show/{id}', [App\Http\Controllers\API\UsersCont
 Route::get('construction-drivers-show', [App\Http\Controllers\API\UsersController::class, 'getDrivers']);
 Route::post('construction-find-employees', [App\Http\Controllers\API\UsersController::class, 'findUsersForConstruction']);
 Route::put('construction-assign-employee', [App\Http\Controllers\API\UsersController::class, 'assignUserToConstruction']);
+
+
+//ORDERS
+Route::post('createOrder', [App\Http\Controllers\API\OrdersController::class, 'createOrder']);
+Route::post('changeStatus/{id}', [App\Http\Controllers\API\OrdersController::class, 'changeStatus']);
+Route::get('getOrders/{id}', [App\Http\Controllers\API\OrdersController::class, 'getOrders']);
+

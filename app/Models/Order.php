@@ -3,15 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/**
- * Class Construction
- * @package App\Models
- */
-class Construction extends Authenticatable
+
+class Order extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -20,7 +17,7 @@ class Construction extends Authenticatable
      *
      * @var string
      */
-    protected $table = 'constructions';
+    protected $table = 'orders';
 
     /**
      * The attributes that are mass assignable.
@@ -28,20 +25,25 @@ class Construction extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'title',
+        'user_id',
+        'status_id',
+        'material_id',
+        'construction_id',
+        'amount'
     ];
 
     public function users(){
-        return $this->hasMany('App\Models\User');
+        return $this->belongsTo('App\Models\User','user_id','id');
     }
-
-    public function materialonconstructions(){
-        return $this->hasMany('App\Models\MaterialOnConstruction');
+    public function statuses(){
+        return $this->belongsTo('App\Models\Status','status_id','id');
     }
-    public function orders(){
-        return $this->hasMany('App\Models\Order');
+    public function materials(){
+        return $this->belongsTo('App\Models\Material','material_id','material_id');
     }
-
+    public function constructions(){
+        return $this->belongsTo('App\Models\Construction','construction_id','id');
+    }
 
 
     /**
@@ -59,3 +61,5 @@ class Construction extends Authenticatable
     protected $casts = [];
 
 }
+
+
