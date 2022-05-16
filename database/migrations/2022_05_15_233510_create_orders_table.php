@@ -13,7 +13,8 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table)
+        {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
@@ -23,7 +24,8 @@ class CreateOrdersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('orders', function($table) {
+        Schema::table('orders', function ($table)
+        {
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->foreign('material_id')->references('material_id')->on('material');

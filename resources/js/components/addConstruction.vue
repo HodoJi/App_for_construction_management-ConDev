@@ -14,7 +14,8 @@
             <div class="col-4 d-flex align-items-start justify-content-end">
                 <button type="button" @click="showModal = true" class="btn btn-primary"><i
                     class="fas fa-list text-black fs-6"></i></button>
-                <button type="button" onclick="history.back()" class="btn btn-primary ms-2"><i class="fas fa-arrow-left fs-6"></i>
+                <button type="button" onclick="history.back()" class="btn btn-primary ms-2"><i
+                    class="fas fa-arrow-left fs-6"></i>
                 </button>
             </div>
         </div>
@@ -26,7 +27,9 @@
                         <input type="text" class="form-control" id="inputName" v-model="constructionName">
                         <div id="nameHelp" class="form-text">Zadaj celé adresu nového staveniska</div>
                     </div>
-                    <button type="button" class="btn btn-primary float-end" @click="addConstr()"><i class="fas fa-edit"></i> Vytvoriť stavenisko</button>
+                    <button type="button" class="btn btn-primary float-end" @click="addConstr()"><i
+                        class="fas fa-edit"></i> Vytvoriť stavenisko
+                    </button>
                 </div>
             </div>
         </form>
@@ -40,68 +43,85 @@
 
 <script>
 
-import BurgerMenu from "./BurgerMenu";
-import Swal from "sweetalert2";
+    import BurgerMenu from "./BurgerMenu";
+    import Swal from "sweetalert2";
 
-export default {
-    name: "addConstruction",
-    components: {
-        BurgerMenu
-    },
-    data() {
-        return {
-            role_id: window.Laravel.user.role_id,
-            showModal: false,
-            constructionCounter: 0,
-            constructionName: ""
-        }
-    },
-    mounted(){
-        this.getNumberOfConstr();
-    },
-    methods: {
-        addConstr(){
-            this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
-                this.$axios.put(this.$BASE_PATH + `api/addConstruction`, {constructionName:this.constructionName})
-                    .then(response => {
-                        if (response.data)
+    export default {
+        name: "addConstruction",
+        components: {
+            BurgerMenu
+        },
+        data()
+        {
+            return {
+                role_id: window.Laravel.user.role_id,
+                showModal: false,
+                constructionCounter: 0,
+                constructionName: ""
+            }
+        },
+        mounted()
+        {
+            this.getNumberOfConstr();
+        },
+        methods: {
+            addConstr()
+            {
+                this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() =>
+                {
+                    this.$axios.put(this.$BASE_PATH + `api/addConstruction`, {constructionName: this.constructionName})
+                        .then(response =>
                         {
-                            if (!response.data.success)
+                            if (response.data)
                             {
-                                Swal.fire({title: "Staveniská", html: "Chyba:<br>" + response.data.message, icon: "warning"});
-                            } else {
-                                Swal.fire({title: "Staveniská", html: response.data.message, icon: "success"}).then((result) =>
+                                if (!response.data.success)
                                 {
-                                    if (result.isConfirmed)
+                                    Swal.fire({
+                                        title: "Staveniská",
+                                        html: "Chyba:<br>" + response.data.message,
+                                        icon: "warning"
+                                    });
+                                }
+                                else
+                                {
+                                    Swal.fire({
+                                        title: "Staveniská",
+                                        html: response.data.message,
+                                        icon: "success"
+                                    }).then(() =>
                                     {
                                         window.location.href = this.$BASE_PATH
-                                    }
-                                });
+                                    });
+                                }
+                                this.getNumberOfConstr();
                             }
-                            this.getNumberOfConstr();
-                        }
-                    })
-                    .catch(function (error) {
-                        console.error(error);
-                        Swal.fire({title: "Staveniská", html: "Chyba:<br>" + error, icon: "warning"});
-                    });
-            })
-        },
-        getNumberOfConstr(){
-            this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
-                this.$axios.get(this.$BASE_PATH + `api/getConstructionCount`)
-                    .then(response => {
-                        this.constructionCounter = response.data[0].count_of_constructions;
-                    })
-                    .catch(function (error) {
-                        console.error(error);
-                        Swal.fire({title: "Staveniská", html: "Chyba:<br>" + error, icon: "warning"});
-                    });
-            })
+                        })
+                        .catch(function (error)
+                        {
+                            console.error(error);
+                            Swal.fire({title: "Staveniská", html: "Chyba:<br>" + error, icon: "warning"});
+                        });
+                })
+            },
+            getNumberOfConstr()
+            {
+                this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() =>
+                {
+                    this.$axios.get(this.$BASE_PATH + `api/getConstructionCount`)
+                        .then(response =>
+                        {
+                            this.constructionCounter = response.data[0].count_of_constructions;
+                        })
+                        .catch(function (error)
+                        {
+                            console.error(error);
+                            Swal.fire({title: "Staveniská", html: "Chyba:<br>" + error, icon: "warning"});
+                        });
+                })
+            }
+            //
         }
-        //
     }
-}
 </script>
 
 <style>

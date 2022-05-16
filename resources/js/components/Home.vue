@@ -13,12 +13,14 @@
                 </div>
             </div>
             <div class="col-4 d-flex align-items-start justify-content-end">
-                <button type="button" @click="showModal = true" class="btn btn-primary"><i class="fas fa-list text-black fs-6"></i></button>
+                <button type="button" @click="showModal = true" class="btn btn-primary"><i
+                    class="fas fa-list text-black fs-6"></i></button>
             </div>
         </div>
         <div class="align-items-center justify-content-center">
             <ul class="list-group" v-for="(construction, index) in constructions">
-                <router-link :to="{ name: `detailStaveniska`, params: {id: construction.id} }" style="text-decoration: none">
+                <router-link :to="{ name: `detailStaveniska`, params: {id: construction.id} }"
+                             style="text-decoration: none">
                     <li class="list-group-item align-middle">
                         <div class="row g-0 justify-content-center">
                             <div class="col">
@@ -28,7 +30,8 @@
                                 <div class="fw-bold text-center">{{ construction.title }}</div>
                             </div>
                             <div class="col text-end">
-                                <button class="btn btn-primary">{{ construction.users_count }} <i class="fas fa-users"></i></button>
+                                <button class="btn btn-primary">{{ construction.users_count }} <i
+                                    class="fas fa-users"></i></button>
                             </div>
                         </div>
                     </li>
@@ -45,50 +48,56 @@
 
 <script>
 
-import BurgerMenu from "./BurgerMenu";
-import Swal from "sweetalert2";
+    import BurgerMenu from "./BurgerMenu";
+    import Swal from "sweetalert2";
 
-export default {
-    name: "Home",
-    components:{
-        BurgerMenu
-    },
-    data() {
-        return{
-            role_id: window.Laravel.user.role_id,
-            loggedInName: window.Laravel.user.name,
-            showModal: false,
-            constructions: [],
-        }
-    },
-    mounted: function () {
-        this.$nextTick(function () {
-            this.$axios.get('./sanctum/csrf-cookie').then(() => {
-                this.$axios.post('./api/constructions-list')
-                    .then(response => {
-
-                        if (response.data)
+    export default {
+        name: "Home",
+        components: {
+            BurgerMenu
+        },
+        data()
+        {
+            return {
+                role_id: window.Laravel.user.role_id,
+                loggedInName: window.Laravel.user.name,
+                showModal: false,
+                constructions: [],
+            }
+        },
+        mounted: function ()
+        {
+            this.$nextTick(function ()
+            {
+                this.$axios.get('./sanctum/csrf-cookie').then(() =>
+                {
+                    this.$axios.post('./api/constructions-list')
+                        .then(response =>
                         {
-                            this.constructions = response.data;
-                        }
-                        else
-                        {
-                            Swal.fire({title: "Zoznam Stavenísk", text: "Chyba!", icon: "warning"});
-                        }
 
-                    })
-                    .catch(function (error){
-                        console.error(error);
-                        Swal.fire({title: "Zoznam Stavenísk", html: "Chyba:<br>" + error, icon: "warning"});
-                    });
+                            if (response.data)
+                            {
+                                this.constructions = response.data;
+                            }
+                            else
+                            {
+                                Swal.fire({title: "Zoznam Stavenísk", text: "Chyba!", icon: "warning"});
+                            }
+
+                        })
+                        .catch(function (error)
+                        {
+                            console.error(error);
+                            Swal.fire({title: "Zoznam Stavenísk", html: "Chyba:<br>" + error, icon: "warning"});
+                        });
+                })
+
             })
-
-        })
-    },
-    methods: {
-        //
+        },
+        methods: {
+            //
+        }
     }
-}
 </script>
 
 <style>

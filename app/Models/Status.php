@@ -28,10 +28,10 @@ class Status extends Model
         'status_name',
     ];
 
-    public function orders(){
+    public function orders()
+    {
         return $this->hasMany('App\Models\Order');
     }
-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,5 +48,3 @@ class Status extends Model
     protected $casts = [];
 
 }
-
-

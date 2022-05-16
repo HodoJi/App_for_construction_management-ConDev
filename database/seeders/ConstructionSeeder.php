@@ -17,22 +17,22 @@ class ConstructionSeeder extends Seeder
     {
         $constructions = [
             1 => [
-                'title'  => 'Bottova 5',
+                'title' => 'Bottova 5',
             ],
             2 => [
-                'title'  => 'Novozámocká 22',
+                'title' => 'Novozámocká 22',
             ],
             3 => [
-                'title'  => 'Tr. A. Hlinku 1',
+                'title' => 'Tr. A. Hlinku 1',
             ],
             4 => [
-                'title'  => 'Považská 9',
+                'title' => 'Považská 9',
             ],
             5 => [
-                'title'  => 'Golianova 18',
+                'title' => 'Golianova 18',
             ],
             6 => [
-                'title'  => 'Kmeťova 57',
+                'title' => 'Kmeťova 57',
             ],
 
         ];
@@ -41,7 +41,7 @@ class ConstructionSeeder extends Seeder
         {
             $check = DB::table("constructions")->find($id);
 
-            if(!$check)
+            if (!$check)
             {
                 $newConstruction = new Construction();
                 $newConstruction->id = $id;

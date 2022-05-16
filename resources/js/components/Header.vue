@@ -29,15 +29,16 @@
 </template>
 
 <script>
-export default {
-    name: "Header",
-    data() {
-        return {
-            name: "",
-            isLoggedIn: true,
-        }
-    },
-}
+    export default {
+        name: "Header",
+        data()
+        {
+            return {
+                name: "",
+                isLoggedIn: true,
+            }
+        },
+    }
 </script>
 
 <style scoped>

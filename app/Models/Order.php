@@ -32,17 +32,24 @@ class Order extends Model
         'amount'
     ];
 
-    public function users(){
-        return $this->belongsTo('App\Models\User','user_id','id');
+    public function users()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
-    public function statuses(){
-        return $this->belongsTo('App\Models\Status','status_id','id');
+
+    public function statuses()
+    {
+        return $this->belongsTo('App\Models\Status', 'status_id', 'id');
     }
-    public function materials(){
-        return $this->belongsTo('App\Models\Material','material_id','material_id');
+
+    public function materials()
+    {
+        return $this->belongsTo('App\Models\Material', 'material_id', 'material_id');
     }
-    public function constructions(){
-        return $this->belongsTo('App\Models\Construction','construction_id','id');
+
+    public function constructions()
+    {
+        return $this->belongsTo('App\Models\Construction', 'construction_id', 'id');
     }
 
 

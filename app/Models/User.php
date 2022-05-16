@@ -36,14 +36,18 @@ class User extends Authenticatable
         'role_id'
     ];
 
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo('App\Models\Role');
     }
 
-    public function construction(){
+    public function construction()
+    {
         return $this->belongsTo('App\Models\Construction');
     }
-    public function orders(){
+
+    public function orders()
+    {
         return $this->hasMany('App\Models\Order');
     }
 

@@ -12,10 +12,13 @@
                 <p class="small text-muted fw-light">Prihláste sa so svojim osobným kľúčom</p>
                 <div class="form-group">
                     <label for="personalId" class="form-label mt-4 text-danger fw-bold">Osobný kľúč</label>
-                    <input type="text" v-model="personalId" class="form-control border-0 border-bottom shadow-none" id="personalId" name="personalId" aria-describedby="personalCode" maxlength="9" minlength="9" autofocus required>
+                    <input type="text" v-model="personalId" class="form-control border-0 border-bottom shadow-none"
+                           id="personalId" name="personalId" aria-describedby="personalCode" maxlength="9" minlength="9"
+                           autofocus required>
                 </div>
                 <div class="d-grid gap-2 mt-3">
-                    <button id="loginBtn" class="btn btn-primary" type="submit" @click="handleLogin">Prihlásiť sa</button>
+                    <button id="loginBtn" class="btn btn-primary" type="submit" @click="handleLogin">Prihlásiť sa
+                    </button>
                 </div>
             </fieldset>
         </form>
@@ -26,10 +29,12 @@
     import Swal from "sweetalert2";
     import jQuery from "jquery";
 
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function ()
+    {
         jQuery("#loginBtn").prop("disabled", true);
 
-        jQuery("#personalId").on('input', function() {
+        jQuery("#personalId").on('input', function ()
+        {
 
             if (jQuery("#personalId").val().length < 1)
             {
@@ -44,7 +49,8 @@
     });
 
     export default {
-        data() {
+        data()
+        {
             return {
                 personalId: "",
                 error: null
@@ -73,16 +79,9 @@
                                         showDenyButton: false,
                                         showCancelButton: false,
                                         confirmButtonText: 'Pokračovať',
-                                    }).then((result) =>
+                                    }).then(() =>
                                     {
-                                        if (result.isConfirmed)
-                                        {
-                                            window.location.href = this.$BASE_PATH
-                                        }
-                                        else
-                                        {
-                                            window.location.href = this.$BASE_PATH
-                                        }
+                                        window.location.href = this.$BASE_PATH
                                     });
                                 }
                                 else
@@ -116,9 +115,11 @@
                 }
             }
         },
-        beforeRouteEnter(to, from, next) {
-            if (window.Laravel.isLoggedin) {
-                return next({ name: 'home' });
+        beforeRouteEnter(to, from, next)
+        {
+            if (window.Laravel.isLoggedin)
+            {
+                return next({name: 'home'});
             }
             next();
         }

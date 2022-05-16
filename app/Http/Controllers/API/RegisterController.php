@@ -44,7 +44,7 @@ class RegisterController extends Controller
 
             $user_personalKey_prefix = null;
 
-            switch($user->role_id)
+            switch ($user->role_id)
             {
                 case 1:
                     $user_personalKey_prefix = 111;
@@ -63,7 +63,7 @@ class RegisterController extends Controller
             $UserController = new UsersController();
             $RandomGenerator = new RandomGenerator();
 
-            while(true)
+            while (true)
             {
                 if (($UserController->doesPersonalKeyIdExist($gotNewPersonalIdKey = intval(strval($user_personalKey_prefix) . $RandomGenerator->generateRandomStringOfLength(6, "0123456789")))) == false)
                 {
@@ -82,7 +82,7 @@ class RegisterController extends Controller
             $success = true;
             $message = 'Používateľ bol úspešne vytvorený.';
         }
-        catch(\Exception $defEx)
+        catch (\Exception $defEx)
         {
             $success = false;
             $message = $defEx->getMessage();

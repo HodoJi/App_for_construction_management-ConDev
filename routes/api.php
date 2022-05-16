@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Middlewares:
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request)
+{
     return $request->user();
 });
 
@@ -29,21 +30,19 @@ Route::post('createUser',               [App\Http\Controllers\API\RegisterContro
 Route::post('showExistingUsers',        [App\Http\Controllers\API\UsersController::class,       'getUsersList']);
 
 // CONSTRUCTIONS
-Route::post('constructions-list', [App\Http\Controllers\API\ConstructionsController::class, 'getList']);
-Route::get('construction-material-show/{id}', [App\Http\Controllers\API\MaterialController::class, 'getMaterialOnConstruction']);
-Route::get('getConstructionDetail/{id}', [App\Http\Controllers\API\ConstructionsController::class, 'getConstructionDetailsPage']);
-Route::get('getConstructionCount', [App\Http\Controllers\API\ConstructionsController::class, 'getConstructionCount']);
-Route::put('addConstruction', [App\Http\Controllers\API\ConstructionsController::class, 'addNewConstruction']);
+Route::post('constructions-list',               [App\Http\Controllers\API\ConstructionsController::class,   'getList']);
+Route::get('construction-material-show/{id}',   [App\Http\Controllers\API\MaterialController::class,        'getMaterialOnConstruction']);
+Route::get('getConstructionDetail/{id}',        [App\Http\Controllers\API\ConstructionsController::class,   'getConstructionDetailsPage']);
+Route::get('getConstructionCount',              [App\Http\Controllers\API\ConstructionsController::class,   'getConstructionCount']);
+Route::put('addConstruction',                   [App\Http\Controllers\API\ConstructionsController::class,   'addNewConstruction']);
 
 // USER/EMPLOYEE MANAGMENT
-Route::get('construction-workers-show/{id}', [App\Http\Controllers\API\UsersController::class, 'getWorkersOnConstruction']);
-Route::get('construction-drivers-show', [App\Http\Controllers\API\UsersController::class, 'getDrivers']);
-Route::post('construction-find-employees', [App\Http\Controllers\API\UsersController::class, 'findUsersForConstruction']);
-Route::put('construction-assign-employee', [App\Http\Controllers\API\UsersController::class, 'assignUserToConstruction']);
-
+Route::get('construction-workers-show/{id}',    [App\Http\Controllers\API\UsersController::class, 'getWorkersOnConstruction']);
+Route::get('construction-drivers-show',         [App\Http\Controllers\API\UsersController::class, 'getDrivers']);
+Route::post('construction-find-employees',      [App\Http\Controllers\API\UsersController::class, 'findUsersForConstruction']);
+Route::put('construction-assign-employee',      [App\Http\Controllers\API\UsersController::class, 'assignUserToConstruction']);
 
 //ORDERS
-Route::post('createOrder', [App\Http\Controllers\API\OrdersController::class, 'createOrder']);
-Route::post('changeStatus/{id}', [App\Http\Controllers\API\OrdersController::class, 'changeStatus']);
-Route::get('getOrders/{id}', [App\Http\Controllers\API\OrdersController::class, 'getOrders']);
-
+Route::post('createOrder',          [App\Http\Controllers\API\OrdersController::class, 'createOrder']);
+Route::post('changeStatus/{id}',    [App\Http\Controllers\API\OrdersController::class, 'changeStatus']);
+Route::get('getOrders/{id}',        [App\Http\Controllers\API\OrdersController::class, 'getOrders']);

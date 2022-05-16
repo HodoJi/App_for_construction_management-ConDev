@@ -11,7 +11,8 @@
             <div class="col-4 d-flex align-items-start justify-content-end">
                 <button type="button" @click="showModal = true" class="btn btn-primary"><i
                     class="fas fa-list text-black fs-6"></i></button>
-                <button type="button" onclick="history.back()" class="btn btn-primary ms-2"><i class="fas fa-arrow-left fs-6"></i>
+                <button type="button" onclick="history.back()" class="btn btn-primary ms-2"><i
+                    class="fas fa-arrow-left fs-6"></i>
                 </button>
             </div>
         </div>
@@ -39,7 +40,9 @@
                         </select>
                         <div id="roleHelp" class="form-text">Vyber pozíciu zamestnanca</div>
                     </div>
-                    <button type="button" class="btn btn-primary float-end" @click="editUser()"><i class="fas fa-edit"></i> Uložiť zamestnanca</button>
+                    <button type="button" class="btn btn-primary float-end" @click="editUser()"><i
+                        class="fas fa-edit"></i> Uložiť zamestnanca
+                    </button>
                 </div>
             </div>
         </form>
@@ -53,28 +56,30 @@
 
 <script>
 
-import BurgerMenu from "./BurgerMenu";
-import Swal from "sweetalert2";
+    import BurgerMenu from "./BurgerMenu";
+    import Swal from "sweetalert2";
 
-export default {
-    name: "editUser",
-    components: {
-        BurgerMenu
-    },
-    data() {
-        return {
-            role_id: window.Laravel.user.role_id,
-            showModal: false,
-            employee: [{name: "Admin Doe", email: "admindoe@tp2management.com", id: "1", role: "admin"}]
-        }
-    },
-    methods: {
-        editUser(){
+    export default {
+        name: "editUser",
+        components: {
+            BurgerMenu
+        },
+        data()
+        {
+            return {
+                role_id: window.Laravel.user.role_id,
+                showModal: false,
+                employee: [{name: "Admin Doe", email: "admindoe@tp2management.com", id: "1", role: "admin"}]
+            }
+        },
+        methods: {
+            editUser()
+            {
 
+            }
+            //
         }
-        //
     }
-}
 </script>
 
 <style>
