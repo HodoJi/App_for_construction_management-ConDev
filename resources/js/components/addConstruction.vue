@@ -57,12 +57,12 @@ export default {
         }
     },
     mounted(){
-        //this.getNumberOfConstr();
+        this.getNumberOfConstr();
     },
     methods: {
         addConstr(){
             this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
-                this.$axios.get(this.$BASE_PATH + `api/getConstructionCount`)
+                this.$axios.put(this.$BASE_PATH + `api/addConstruction`, {constructionName:this.constructionName})
                     .then(response => {
                         if (response.data)
                         {
@@ -70,7 +70,13 @@ export default {
                             {
                                 Swal.fire({title: "Staveniská", html: "Chyba:<br>" + response.data.message, icon: "warning"});
                             } else {
-                                Swal.fire({title: "Staveniská", html: response.data.message, icon: "success"});
+                                Swal.fire({title: "Staveniská", html: response.data.message, icon: "success"}).then((result) =>
+                                {
+                                    if (result.isConfirmed)
+                                    {
+                                        window.location.href = this.$BASE_PATH
+                                    }
+                                });
                             }
                             this.getNumberOfConstr();
                         }
@@ -85,7 +91,7 @@ export default {
             this.$axios.get(this.$BASE_PATH + 'sanctum/csrf-cookie').then(() => {
                 this.$axios.get(this.$BASE_PATH + `api/getConstructionCount`)
                     .then(response => {
-                        this.constructionCounter = response.data[0].counter;
+                        this.constructionCounter = response.data[0].count_of_constructions;
                     })
                     .catch(function (error) {
                         console.error(error);
