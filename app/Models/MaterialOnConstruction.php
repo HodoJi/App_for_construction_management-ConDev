@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
- * Class User
+ * Class MaterialOnConstruction
  * @package App\Models
  */
-class User extends Authenticatable
+class MaterialOnConstruction extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -21,7 +20,7 @@ class User extends Authenticatable
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'material_on_construction';
 
     /**
      * The attributes that are mass assignable.
@@ -29,26 +28,19 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
-        'personalId',
         'construction_id',
-        'role_id'
+        'material_id',
+        'stock_count',
     ];
-
-    public function role()
-    {
-        return $this->belongsTo('App\Models\Role');
-    }
 
     public function construction()
     {
         return $this->belongsTo('App\Models\Construction');
     }
 
-    public function orders()
+    public function material()
     {
-        return $this->hasMany('App\Models\Order');
+        return $this->belongsTo('App\Models\Material');
     }
 
     /**
@@ -56,23 +48,13 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password',
-        // 'remember_token',
-    ];
+    protected $hidden = [];
 
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
-    protected $casts = [
-        // 'email_verified_at' => 'datetime',
-    ];
+    protected $casts = [];
 
-    // Checks user role
-    public function hasRole($user_id, $role_id)
-    {
-        return User::where('role_id', $role_id)->where('id', $user_id)->get();
-    }
 }

@@ -9,34 +9,32 @@ use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\RateLimiter;
 
+/**
+ * Class LoginController
+ * @package App\Http\Controllers\API
+ */
 class LoginController extends Controller
 {
     public function loginUser(Request $request)
     {
 
-        $this->checkTooManyFailedAttempts();
-
         $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
+            'personalId' => $request->personalId,
+            'password' => "0"
         ];
 
         if (Auth::attempt($credentials))
         {
-            RateLimiter::clear($this->throttleKey());
-
             $success = true;
             $message = 'Úspešne prihlásený.';
         }
         else
         {
-            RateLimiter::hit($this->throttleKey(), $seconds = 3600);
-
             $success = false;
             $message = 'Neautorizovaný prístup.';
         }
 
-        // response
+        // Response
         $response = [
             'success' => $success,
             'message' => $message,
@@ -46,18 +44,4 @@ class LoginController extends Controller
         return response()->json($response);
     }
 
-    public function throttleKey()
-    {
-        return Str::lower(request('email')) . '|' . request()->ip();
-    }
-
-    public function checkTooManyFailedAttempts()
-    {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 3))
-        {
-            return;
-        }
-
-        throw new Exception('IP address banned. Too many login attempts.');
-    }
 }

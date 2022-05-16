@@ -20,5 +20,6 @@ yarn-error.log
 # Added Ignore List
 docker-compose.yml
 .git
+*.rar*
 /public/js/app.js
 /_IGNORE_DIR

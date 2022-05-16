@@ -19,15 +19,19 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name', 100)->unique(); // :username
             $table->string('email', 250)->unique(); //: email
-            $table->string('password', 250); //: password
-
-            //$table->unsignedBigInteger('role_id'); // → MAY BE ADDED IN FUTURE.
-
+            $table->string('personalId', 9)->unique();
+            $table->string('password')->default(bcrypt(0));
+            $table->unsignedBigInteger('construction_id')->nullable();
+            $table->unsignedBigInteger('role_id');
             $table->timestamps(); /*: created_at & edited_at; */
-
-            // foreign keys:
-            //$table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade'); // → MAY BE ADDED IN FUTURE.
         });
+
+        Schema::table('users', function ($table)
+        {
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('construction_id')->references('id')->on('constructions');
+        });
+
     }
 
     /**
