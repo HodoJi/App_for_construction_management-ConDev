@@ -15,6 +15,8 @@
             </div>
             <div class="col-4 d-flex align-items-start justify-content-end">
                 <button type="button" @click="showModal = true" class="btn btn-dark"><i class="fas fa-list fs-6"></i></button>
+                <button type="button" onclick="history.back()" class="btn btn-primary ms-2"><i class="fas fa-arrow-left fs-6"></i>
+                </button>
             </div>
         </div>
         <form class="border border-dark rounded opacity-75 p-3 mb-5" v-if="role_id <= 2">
