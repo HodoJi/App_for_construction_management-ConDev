@@ -11,6 +11,8 @@
             <div class="col-4 d-flex align-items-start justify-content-end">
                 <button type="button" @click="showModal = true" class="btn btn-primary"><i
                     class="fas fa-list text-black fs-6"></i></button>
+                <button type="button" onclick="history.back()" class="btn btn-primary ms-2"><i class="fas fa-arrow-left fs-6"></i>
+                </button>
             </div>
         </div>
         <div class="align-items-center justify-content-center">

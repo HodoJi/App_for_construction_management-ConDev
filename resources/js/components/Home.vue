@@ -8,6 +8,7 @@
                     </div>
                     <div class="col-12 mt-0 pt-0">
                         <p class="small text-muted fw-light">Počet stavenísk: {{ constructions.length }}</p>
+                        <p class="small text-muted fw-light mt-0">Prihlásený ako: {{ loggedInName }}</p>
                     </div>
                 </div>
             </div>
@@ -55,6 +56,7 @@ export default {
     data() {
         return{
             role_id: window.Laravel.user.role_id,
+            loggedInName: window.Laravel.user.name,
             showModal: false,
             constructions: [],
         }
